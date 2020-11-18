@@ -2,3 +2,31 @@ baseURL = "https://cis188.github.io/"
 languageCode = "en-us"
 title = "CIS 188: DevOps"
 theme = "cactus"
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "Schedule"
+url = "/schedule"
+weight = 2
+
+[[menu.main]]
+name = "Syllabus"
+url = "/syllabus"
+weight = 3
+
+[[menu.main]]
+name = "Office Hours"
+url = "/officehours"
+weight = 4
+
+[[menu.main]]
+name = "Staff"
+url = "/staff"
+weight = 4
+
+[params]
+  colortheme = "dark"
