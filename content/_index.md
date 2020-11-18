@@ -1,4 +1,4 @@
-Welcome to CIS 188: DevOps!
+Welcome to CIS 188: DevOps at the University of Pennsylvania!
 
 ## Course Description
 
