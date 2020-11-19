@@ -1,5 +1,13 @@
 {{ define "main" }}
   <h1>Lectures</h1>
+  <style>
+      .delimiter:last-child {
+        display: none;
+      }
+      .no {
+          background-color: lightgray;
+      }
+  </style>
   <table style="width: 70%; text-align: left;">
       <thead>
       <tr>
@@ -10,7 +18,7 @@
       </thead>
       <tbody>
         {{ range sort .Pages.ByDate }}
-          <tr>
+          <tr class="{{if gt .Date now}}no{{end}}">
             <td>{{ dateFormat "1/2" .Date }}</td>
             <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
             <td>
@@ -19,11 +27,6 @@
                 {{ with $.Site.GetPage $path }}
                     <a href="{{ .Permalink }}">{{ .Title }}</a>
                 {{ end }}
-                <style>
-                    .delimiter:last-child {
-                        display: none;
-                    }
-                </style>
                 <span class="delimiter">|</span>
             {{ else }}
                 N/A
