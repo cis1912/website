@@ -8,7 +8,7 @@
           background-color: lightgray;
       }
   </style>
-  <table style="width: 70%; text-align: left;">
+  <table>
       <thead>
       <tr>
           <th>Week Of</th>
@@ -27,7 +27,7 @@
                 {{ with $.Site.GetPage $path }}
                     <a href="{{ .Permalink }}">{{ .Title }}</a>
                 {{ end }}
-                <span class="delimiter">|</span>
+                <span class="delimiter last:hidden">|</span>
             {{ else }}
                 N/A
             {{ end }}
