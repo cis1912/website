@@ -4,9 +4,6 @@
       .delimiter:last-child {
         display: none;
       }
-      .no {
-          background-color: lightgray;
-      }
   </style>
   <table>
       <thead>
@@ -18,7 +15,7 @@
       </thead>
       <tbody>
         {{ range sort .Pages.ByDate }}
-          <tr class="{{if gt .Date now}}no{{end}}">
+          <tr class="{{if gt .Date now}}bg-gray-400{{end}}">
             <td>{{ dateFormat "1/2" .Date }}</td>
             <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
             <td>
@@ -27,7 +24,7 @@
                 {{ with $.Site.GetPage $path }}
                     <a href="{{ .Permalink }}">{{ .Title }}</a>
                 {{ end }}
-                <span class="delimiter last:hidden">|</span>
+                <span class="delimiter"> | </span>
             {{ else }}
                 N/A
             {{ end }}
