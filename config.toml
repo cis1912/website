@@ -29,4 +29,4 @@ url = "/staff"
 weight = 4
 
 [params]
-  colortheme = "dark"
+  colortheme = "white"
