@@ -10,7 +10,7 @@ weight = 1
 
 [[menu.main]]
 name = "Schedule"
-url = "/schedule"
+url = "/lectures"
 weight = 2
 
 [[menu.main]]
@@ -29,4 +29,4 @@ url = "/staff"
 weight = 4
 
 [params]
-  colortheme = "dark"
+  colortheme = "white"
