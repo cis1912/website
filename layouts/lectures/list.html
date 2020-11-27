@@ -10,6 +10,7 @@
       <tr>
           <th>Week Of</th>
           <th>Topic</th>
+          <th>Slides</th>
           <th>Assignments Due</th>
       </tr>
       </thead>
@@ -18,6 +19,13 @@
           <tr class="{{if gt .Date now}}bg-gray-400{{end}}">
             <td>{{ dateFormat "1/2" .Date }}</td>
             <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
+            <td>
+            {{ $deck := .Params.slides }}
+            {{ $path := $deck | printf "/slides/%s" | printf "%s" }} 
+            {{ with $.Site.GetPage $path }}
+                <a href="{{ .Permalink }}">{{ .Title }}</a>
+            {{ end }}
+            </td>
             <td>
             {{ range $asst := .Params.assignments }}
                 {{ $path := $asst | printf "/homeworks/%s" | printf "%s" }}
