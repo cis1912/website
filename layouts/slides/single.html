@@ -2,17 +2,53 @@
 
 <link rel="stylesheet" href="/reveal/dist/reset.css">
 <link rel="stylesheet" href="/reveal/dist/reveal.css">
-<link rel="stylesheet" href="/reveal/dist/theme/solarized.css" id="theme">
+<link rel="stylesheet" href="/reveal/dist/theme/white.css" id="theme">
 <link rel="stylesheet" href="/reveal/plugin/highlight/monokai.css" id="highlight-theme">
+
+<style>
+.reveal ol,
+.reveal dl,
+.reveal ul,
+.reveal p {
+  display: block;
+  text-align: left;
+  margin: 0 2em 0 2em; }
+
+/*
+  Use .dense for slides with a lot of text
+*/
+.reveal .dense ol,
+.reveal .dense dl,
+.reveal .dense ul,
+.reveal .dense p {
+  line-height: 1.1;
+  margin: 0 1em 0 1em;
+}
+
+.reveal .dense li {
+  padding: .25em;
+}
+
+.home-button {
+  position: fixed;
+  left: 2rem;
+  top: 1rem;
+}
+</style>
 
 
 <div class="reveal">
   <div class="slides">
-    <section data-markdown data-separator="---" data-separator-vertical="--">
-      <script type="text/template">{{ .RawContent }}</script>
+    <section data-markdown data-separator="----" data-separator-vertical="---">
+      <script type="text/template">{{ .RawContent | safeHTML }}</script>
     </section>
   </div>
 </div>
+
+<div class="home-button">
+  <a href="/lectures/">Go home</a>
+</div>
+
 
 <script src="/reveal/dist/reveal.js"></script>
 <script src="/reveal/plugin/notes/notes.js"></script>
@@ -26,7 +62,7 @@
     hash: true,
 
     // Learn about plugins: https://revealjs.com/plugins/
-    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
   });
 </script>
 
