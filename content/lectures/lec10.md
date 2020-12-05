@@ -1,6 +1,6 @@
 ---
-title: "Docker Containers"
-date: 2021-01-25
+title: "Productionizing Kubernetes"
+date: 2021-03-21
 assignments: []
 slides: ""
 draft: false

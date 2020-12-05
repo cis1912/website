@@ -1,6 +1,6 @@
 ---
-title: "Docker Containers"
-date: 2021-01-25
+title: "Kubernetes fundamentals"
+date: 2021-02-08
 assignments: []
 slides: ""
 draft: false

@@ -1,7 +1,7 @@
 ---
-title: "Lecture 1"
-date: 2020-10-26T22:44:42-05:00
-assignments: ["hw1"]
+title: "Python Testing, HTTP"
+date: 2021-01-20
+assignments: ["hw0"]
 slides: "deck1"
 draft: false
 ---
