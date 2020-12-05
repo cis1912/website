@@ -1,5 +1,5 @@
 ---
-title: "Cloud Kubernetes"
+title: "CI/CD Pipelines"
 draft: false
 ---
 

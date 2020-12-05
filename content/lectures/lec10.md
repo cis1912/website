@@ -1,7 +1,7 @@
 ---
 title: "Productionizing Kubernetes"
 date: 2021-03-21
-assignments: []
+assignments: ["hw4"]
 slides: ""
 draft: false
 ---
