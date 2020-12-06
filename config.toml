@@ -10,22 +10,22 @@ weight = 1
 
 [[menu.main]]
 name = "Schedule"
-url = "/lectures"
+url = "/lectures/"
 weight = 2
 
 [[menu.main]]
 name = "Syllabus"
-url = "/syllabus"
+url = "/syllabus/"
 weight = 3
 
 [[menu.main]]
 name = "Office Hours"
-url = "/officehours"
+url = "/officehours/"
 weight = 4
 
 [[menu.main]]
 name = "Staff"
-url = "/staff"
+url = "/staff/"
 weight = 4
 
 [params]
