@@ -16,7 +16,7 @@ TODO: add pictures, fun facts
 ## Peyton
 
 - Junior in CIS
-- fun fact here
+- peyton is so bad at math he had to drop out of nets
 
 ---
 ## Armaan
@@ -36,6 +36,7 @@ TODO: add pictures, fun facts
 
 - Sophomore in NETS
 - resident baby
+- fun fact: campbell refuses to sleep ... ever
 
 ----
 ## Housekeeping
@@ -76,5 +77,116 @@ DevOps is the breaking down of the wall between Developers and Operations to all
 - Observability
 
 ----
-## Slide 3
-Docker compose > K8s eom
+## Course Goals
+
+- Learn about DevOps philosophies
+  - Covered in lecture
+- Learn to implement such philosophies
+  - Covered in lecture + homeworks
+
+----
+<!-- .slide: data-auto-animate -->
+# Python
+
+---
+<!-- .slide: data-auto-animate -->
+# Python
+
+- Easy to learn
+- Easy to read/write
+- Wide library support
+
+----
+
+## Control Flow
+
+```python [1|3|4|5-7|6|8-12]
+import time
+
+for i in range(1, 16):
+    print(i)
+    if i % 3 == 0 and i % 5 == 0:
+        print(time.time())
+        print("fizzbuzz")
+    elif i % 3 == 0:
+        print("fizz")
+    elif i % 5 == 0:
+        print("buzz")
+```
+
+---
+
+```
+$ python3 test.py
+1
+2
+3
+fizz
+4
+5
+buzz
+6
+fizz
+7
+8
+9
+fizz
+10
+buzz
+11
+12
+fizz
+13
+14
+15
+1607229328.9530184
+fizzbuzz
+```
+
+----
+## Functions
+
+```python[1|11|]
+def get_buzz(i):
+    if i % 3 == 0 and i % 5 == 0:
+        return "fizzbuzz"
+    elif i % 3 == 0:
+        return "fizz"
+    elif i % 5 == 0:
+        return "buzz"
+    return ""
+
+for i in range(1, 16):
+    print(str(i) + " " + get_buzz(i))
+```
+
+---
+
+```
+$ python3 test.py
+1 
+2 
+3 fizz
+4 
+5 buzz
+6 fizz
+7 
+8 
+9 fizz
+10 buzz
+11 
+12 fizz
+13 
+14 
+15 fizzbuzz
+```
+
+----
+<!-- .slide: data-auto-animate -->
+## Packaging
+---
+<!-- .slide: data-auto-animate -->
+## Packaging
+
+- Ensure consistent versions across everyone writing this software
+- Ensure dependencies are version-compatible with each other
