@@ -1,5 +1,5 @@
 ---
-title: "Local Kubernetes"
+title: "Cloud Kubernetes"
 draft: false
 ---
 

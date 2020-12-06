@@ -1,6 +1,7 @@
 ---
 title: "Special Topic Lecture"
 date: 2021-04-18
+publishDate: 2020-12-01
 assignments: []
 slides: ""
 draft: false
