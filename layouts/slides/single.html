@@ -54,7 +54,16 @@
 if (window.location.search.includes("print-pdf")) {
   const home = document.querySelector(".home-button");
   home.remove();
-  window.print();
+
+  if (localStorage.getItem("has_printed") == null) {
+    alert("Make sure to print in landscape mode!");
+    localStorage.setItem("has_printed", "true");
+    // need to set timeout in order to not get firefox alert about successive dialogs
+    window.setTimeout(window.print, 3000);
+  } else {
+    window.print();
+  }
+
 }
 </script>
 
