@@ -20,7 +20,7 @@
             <td>{{ dateFormat "1/2" .Date }}</td>
             <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
             <td>
-            {{ $deck := .Params.slides }}
+            {{ $deck := .File.BaseFileName }}
             {{ $path := $deck | printf "/slides/%s" | printf "%s" }} 
             {{ with $.Site.GetPage $path }}
                 <a href="{{ .Permalink }}">{{ .Title }}</a>

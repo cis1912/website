@@ -50,6 +50,13 @@
   <a href="/lectures/">Go home</a>
 </div>
 
+<script>
+if (window.location.search.includes("print-pdf")) {
+  const home = document.querySelector(".home-button");
+  home.remove();
+  window.print();
+}
+</script>
 
 <script src="/reveal/dist/reveal.js"></script>
 <script src="/reveal/plugin/notes/notes.js"></script>
