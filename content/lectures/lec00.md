@@ -1,6 +1,6 @@
 ---
-title: "Python Testing, HTTP"
-date: 2021-01-20
+title: "Course Intro, Python Basics"
+date: 2021-01-19
 publishDate: 2020-12-01
 assignments: []
 draft: false
