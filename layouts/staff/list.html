@@ -1,0 +1,27 @@
+{{ define "main" }}
+<h1>Staff</h1>
+
+<style>
+.staff-list-bios {
+  display: flex;
+  justify-content: center;
+}
+</style>
+
+<h2>Instructors</h2>
+<div class="staff-list-bios">
+{{ range where .Pages "Params.rank" 0 }}
+
+{{ partial "bio.html" .}}
+
+{{ end }}
+</div>
+<h2>Teaching Assistants</h2>
+<div class="staff-list-bios">
+{{ range where .Pages "Params.rank" "!=" 0}}
+
+{{ partial "bio.html" .}}
+
+{{ end }}
+</div>
+{{ end }}
