@@ -18,7 +18,7 @@
 </style>
 <div class="bio-bio">
 {{ $img := .Params.image | printf "profiles/%s" | resources.Get }}
-{{ $img := $img.Fill "250x250 Smart"}}
+{{ $img := $img.Fill "800x800 Smart"}}
 <img class="bio-img" src="{{$img.RelPermalink}}" />
 
 {{ $pennkey := index .Params.email 0 }}
