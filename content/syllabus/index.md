@@ -17,8 +17,9 @@ For a list of assignments and when they are due check the [course schedule](/sch
 
 ## Grading
 
-* 60% Homework
+* 50% Homework
 * 40% Final Project
+* 10% Participation
 
 Homework assignments will consist of medium-size projects that lead students through the implementation
 and application of concepts and tools discussed in lectures, and will be graded on correctness and
