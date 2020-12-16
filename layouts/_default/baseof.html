@@ -2,16 +2,26 @@
 <html lang="{{ .Site.LanguageCode }}">
 {{ partial "head.html" . }}
 {{ if ne .Section "slides"}}
-<body class="max-width mx-auto px3 ltr">
+<body>
+  {{ partial "registration_banner" }}
+  <div class="max-width mx-auto px3 ltr">
   <div class="content index py4">
     {{ partial "header.html" . }}
 
+    <style>
+      .main-content {
+        font-family: sans-serif;
+      }
+    </style>
+    <div class="main-content">
     {{ block "main" . }}
     {{ end }}
+    </div>
 
     {{ partial "footer.html" . }}
   </div>
   {{ else }}
+  </div>
 <body>
   {{ block "main" . }}
   {{ end }}
