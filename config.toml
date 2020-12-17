@@ -30,3 +30,4 @@ weight = 4
 
 [params]
   colortheme = "white"
+  logo = "img/logo.png"
