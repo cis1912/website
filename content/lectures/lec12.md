@@ -1,8 +1,8 @@
 ---
-title: "Special Topic Lecture"
-date: 2021-04-04
+title: "Special Topic: Zero Trust"
+date: 2021-04-19
 publishDate: 2020-12-01
-assignments: ["hw5"]
+assignments: []
 slides: ""
 draft: false
 ---

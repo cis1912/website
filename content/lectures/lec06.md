@@ -1,8 +1,8 @@
 ---
-title: "Cloud basics, Cloud vs local Kubernetes"
-date: 2021-02-22
+title: "The Cloud"
+date: 2021-03-08
 publishDate: 2020-12-01
-assignments: []
+assignments: ["hw2"]
 slides: ""
 draft: false
 ---

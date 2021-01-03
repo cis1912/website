@@ -1,8 +1,8 @@
 ---
-title: "Cloud Kubernetes features"
-date: 2021-02-28
+title: "Monitoring and Observability"
+date: 2021-03-15
 publishDate: 2020-12-01
-assignments: ["hw3"]
+assignments: []
 slides: ""
 draft: false
 ---

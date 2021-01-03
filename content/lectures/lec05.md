@@ -1,8 +1,8 @@
 ---
 title: "Practical Kubernetes"
-date: 2021-02-15
+date: 2021-03-01
 publishDate: 2020-12-01
-assignments: ["hw2"]
+assignments: []
 slides: ""
 draft: false
 ---
