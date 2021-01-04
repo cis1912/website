@@ -146,4 +146,3 @@ For including parameters in POST requests with Postman, the process is a little 
 ## Reminders
 
 [Lab 0](/homeworks/hw0) has been released and is due 11:59 EST before next class.
-Hello world! This is the first lecture.
