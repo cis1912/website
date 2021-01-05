@@ -99,6 +99,18 @@ $ curl https://cis188.github.io/img/logo.png > logo.png
 ```
 here we are retrieving the course logo from the website. Because the logo is an image and the command cannot display images, we instead use the `>` symbol, called a redirect, to save the output to a file called `logo.png` in our working directly. If you use your computer's GUI to navigate to the terminal's current working directory, you will see this new file called `logo.png` and you can open it!
 
+Lastly, you can also specify HTTP headers with cURL. For example, if you wanted to wanted to pass a long a header which specified that the response data should be in JSON format, you could pass the header `Accept: application/json`. Let's take a look at an example that queries a simple weather API (more examples in HTTPie and Postman demos):
+
+```
+$ curl -H "Accept: application/json" "http://api.openweathermap.org/data/2.5/weather?appid=ee5663bb9450273b46632b11e97ad6ad&q=Philadelphia&mode=json"
+```
+
+you could instead ask for the response to be in XML by changing the header to `Accept: application/json`:
+
+```
+$ curl -H "Accept: application/xml" "http://api.openweathermap.org/data/2.5/weather?appid=ee5663bb9450273b46632b11e97ad6ad&q=Philadelphia&mode=xml"
+```
+
 ### HTTPie
 
 HTTPie is a command-line tool that actually allows us to send specific HTTP requests. This is something you might not already have installed so checkout the download guide [here](https://httpie.io/docs#installation). Next, let's give it a try:
