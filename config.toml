@@ -28,6 +28,16 @@ name = "Staff"
 url = "/staff/"
 weight = 4
 
+[[menu.main]]
+name = "Gradescope"
+url = "https://www.gradescope.com/courses/229689"
+weight = 4
+
+[[menu.main]]
+name = "Piazza"
+url = "https://piazza.com/upenn/spring2021/cis188/home"
+weight = 4
+
 [params]
   colortheme = "white"
   logo = "img/logo.png"
