@@ -38,7 +38,6 @@ The following make up the components of an HTTP request
 
     Here's a table of a few of the most common method as well as some defining characteristics:
 
-{{<table "table table-striped table-bordered">}}
 | GET                                       | POST                      | PUT                                  | DELETE              |
 | ----------------------------------------- | ------------------------- | ------------------------------------ | ------------------- |
 | Has no body                               | Can use a body            | Uses a body                          | Deletes a resource  |
@@ -46,7 +45,6 @@ The following make up the components of an HTTP request
 | Uses Query parameters to hold information |                           | Is idempotent                        |                     |
 | Is idempotent                             |                           |                                      |                     |
 | Ex. Retrieving a webpage                  | Ex. Submitting a form     | Ex. Uploading a file                 | Ex. Deleting a file |
-{{</table>}}
 
 2. URL - specifices what resource to request
 
