@@ -6,8 +6,6 @@ assignments: ["hw0"]
 draft: false
 ---
 
-Coming soon!
-
 ## Demos
 
 ### Docker
