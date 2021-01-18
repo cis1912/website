@@ -32,7 +32,7 @@ When you think about it, this is a really smart way to create Docker images. Let
 So, now that we have this Ubuntu Docker image installed, what can we do with it? Let's spin up the container and play around with it:
 
 ```
-$ docker run -it --name ubuntu-demo ubuntu
+$ docker run -it --rm --name ubuntu-demo ubuntu
 # This will open a terminal within the container running Ubuntu thanks to the "-it" flag
 # Now let's check to make sure we are actually running the latest version of Ubuntu
 root@260a8119abd6:/# cat /etc/os-release
@@ -52,100 +52,33 @@ UBUNTU_CODENAME=focal
 
 We can see that the Docker container is running a fresh install of Ubuntu. Now, we could do all manner of things with this Ubuntu container: install new software, expose ports, connect to a network, run a web server, etc. However, actually doing these things manually within the Ubuntu terminal is _not_ reproducible; we would have to perform those same operations every time we wanted to spin up a new container. Hence, a Dockerfile. When we write a Dockerfile it is essentially a roadmap for how the Docker image should be run, so that all of the installation and configuration of whatever toolchain we need on our container can be written out concisely once and only once.
 
-However, feel free to try out different commands or installing different software on the Ubuntu container. It works the same as any other Linxu command line interface and there is a lot you can do with it. You can type the `exit` comand to leave the Ubuntu terminal at any time.
+However, feel free to try out different commands or installing different software on the Ubuntu container. It works the same as any other Linux command line interface and there is a lot you can do with it.
 
 ### Building an App on Docker
 
-Let's build a simple Node web application on Docker to outline the development process. First, create a new directory anywhere on your machine called `node_demo`. Now within this directory will write all of our application code. First we'll start with a Dockerfile that has all of the requisite steps for setting up our Docker application:
+We're going to provide you with some of the starter code for a Node application. We're going to put this application within a Docker container and see how the development process (updating the app) is influenced by the application being containerized. To get the starter code, you can clone the course website repository and enter the `node_demo` directory:
 
 ```
-# Pull from latest verision of Node
-FROM node:latest
+# Clone the website from Git to your local machine
+$ git clone https://github.com/cis188/website.git
+# Enter the node_demo directory
+$ cd website/static/demos/node_demo
+```
 
-# Set the working directory to this directory (common place to 
-# store application in the Linux file structure)
-WORKDIR /usr/src/app
+Before we carry on to modifying the application, there is a little nuance in the Dockerfile that we should underscore. Taking a look inside the Dockerfile, note that we copy over the `packagae.json` and `package-lock.json` files before installing our dependencies:
 
+```
 # Copy over package.json and packaage-lock.json (these files
 # contain the necessary dependencies for our project)
 COPY package*.json ./
 
 # Install dependencies for our project
 RUN npm install
-
-# Copy over all of the app source code
-COPY . .
-
-# Expose the port on which we will run our application
-EXPOSE 8080
-
-# Start the server
-CMD ["node", "index.js"]
 ```
 
-Before we carry on to the next step, there is a little nuance here that we should underscore. Note that we copy over the `packagae.json` and `package-lock.json` files before installing our dependencies. Why don't we just install the dependencies and then copy everything over at once? The answer is that Docker is smart and if the files `packagae.json` and `package-lock.json` have not changed, it can skip the following build steps where it installs the dependencies and copies them over. This works because the two files `packagae.json` and `package-lock.json` contain all of the Node dependencies, so if they have not changed we know that the dependencies have not changed.
+Why don't we just install the dependencies and then copy everything over at once? The answer is that Docker is smart and if the files `packagae.json` and `package-lock.json` have not changed, it can skip the following build steps where it installs the dependencies and copies them over. This works because the two files `packagae.json` and `package-lock.json` contain all of the Node dependencies, so if they have not changed we know that the dependencies have not changed.
 
-Now that we've written our Dockerfile, we actually should initialize a Node application (if you don't have Node installed, you can find an download guide on their [website](https://nodejs.org/en/download/)). Once you have Node installed, we can initialize the project within our `node_demo` (that also containers our Dockerfile):
-
-```
-$ npm init 
-This utility will walk you through creating a package.json file.
-It only covers the most common items, and tries to guess sensible defaults.
-
-See `npm help init` for definitive documentation on these fields
-and exactly what they do.
-
-Use `npm install <pkg>` afterwards to install a package and
-save it as a dependency in the package.json file.
-
-Press ^C at any time to quit.
-package name: (node_demo) node_demo
-version: (1.0.0) 
-description: A demo application built to outline development with Docker for cis188
-entry point: (index.js) 
-test command: 
-git repository: 
-keywords: 
-author: 
-license: (ISC) 
-About to write to /Users/campbellphalen/Desktop/node_demo/package.json:
-
-{
-  "name": "node_demo",
-  "version": "1.0.0",
-  "description": "A demo application built to outline development with Docker for cis188",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
-}
-
-
-Is this OK? (yes) yes
-```
-
-This will create a `package.json` file containing the information we've just provided. Finally, we need our `index.js` file:
-
-```
-const http = require('http');
-
-const hostname = '0.0.0.0';
-const port = 8080;
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World!');
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
-```
-
-Finally, let's build the Docker image and start up the Docker container:
+Now, let's build the Docker image and start up the Docker container (make sure you've entered the `node_demo` directory):
 
 ```
 # Build the Docker image from our Dockerfile
@@ -155,7 +88,7 @@ $ docker run -p 8080:8080 --name node-demo-container node-demo-image
 Server running at http://0.0.0.0:8080/
 ```
 
-Now, when we navigate to (http://localhost:8080/)[http://localhost:8080/] we can see the `Hello world!` message. So, let's make some changes to this web application and see what we need to do in our Dockerfile to support those changes (spoiler alert: no very much, Docker makes the development process pretty seemless).
+Navigate to (http://localhost:8080/)[http://localhost:8080/] and you can see the `Hello world!` message. So, let's make some changes to this web application and see what we need to do in our Dockerfile to support those changes (spoiler alert: not very much, Docker makes the development process pretty seamless).
 
 Let's say we needed to generate unique user IDs if we were saving users into a database. There's an Node package called `uuid`, let's install that and see how Docker handles adding a new package. We can type:
 
@@ -191,6 +124,9 @@ $ docker container rm node-demo-container
 $ docker build --tag node-demo-image .
 # Recreate the node-demo container
 $ docker run -p 8080:8080 --name node-demo-container node-demo-image
+Server running at http://0.0.0.0:8080/
 ```
 
-Now, this is pretty concise. When we make a change to our development environment (here we installed a new dependency), Docker makes it pretty seemless to also have that be installed the Docker container's environment. However, we still have to rebuild the Docker image and the Docker container, which can feel a little tedious. This is something we'll address later in the course when we talk about Docker-compose!
+Navigate back to `localhost:8080` and you will see that the page now displays something like "Hello World: 0b431e86-49f0-4678-9b34-ff8939c1201b". So, the installation and setup of our `uuid` package worked!
+
+This is pretty concise. When we make a change to our development environment (here we installed a new dependency), Docker makes it pretty seamless to also apply change to the Docker container's environment. However, we still have some parts of the process which can be streamlined further. This is something we'll address later in the course when we talk about Docker-compose!
