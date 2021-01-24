@@ -19,11 +19,6 @@ url = "/syllabus/"
 weight = 3
 
 [[menu.main]]
-name = "Office Hours"
-url = "/officehours/"
-weight = 4
-
-[[menu.main]]
 name = "Staff"
 url = "/staff/"
 weight = 4

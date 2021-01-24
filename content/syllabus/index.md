@@ -4,6 +4,10 @@ title: Syllabus
 
 For a list of assignments and when they are due check the [course schedule](/schedule).
 
+## Meetings
+
+Course meetings will be every Monday from 1:30-3pm ET. Office hours will be held biweekly unless announced otherwise. Details can be found [on our logistics Piazza post](https://piazza.com/class/kjyhdptju7i12a?cid=6).
+
 ## Topics Covered
 
 * HTTP
