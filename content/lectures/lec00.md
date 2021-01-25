@@ -64,7 +64,7 @@ Python 3.9.1 (default, Dec 24 2020, 16:53:18)
 [Clang 12.0.0 (clang-1200.0.32.28)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
 >>> import numpy as np
->>> x = np.array([1,2],[3,4])
+>>> x = np.array([[1,2],[3,4]])
 >>> x
 array([[1, 2],
        [3, 4]])
