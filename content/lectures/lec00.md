@@ -7,7 +7,83 @@ slides: https://docs.google.com/presentation/d/1tUFsV_Df2ZB_N8zjG-w9coywL_mYAOGm
 draft: false
 ---
 
-Hello world! This is the first lecture.
+## Lecture Notes
+
+### Housekeeping
+
+Grade breakdown:
+ - 50% homework (5 assignments, released on GitHub and submitted on Gradescope)
+ - 40% final project
+ - 10% participation (show up to class or let course staff know you can't make it)
+
+Post questions on [Piazza](https://piazza.com/upenn/spring2021/cis188/home) (but not for debugging) or some to OH:
+  - Peyton/Davis: Wednesday 4pm-6pm EST
+  - Armaan/Campbell: Sunday 4pm-6pm EST
+
+### What is DevOps?
+
+Breaking down the wall between developers (people writing code) and operations (how the code is released and deployed into production reliably). Traditionally these have been two very separate teams, but that means that developers aren't motivated to make life easier for operations and operations isn't motivated to make life easier for developers. The key concept behind DevOps is that if these two teams can be symbiotic, everyone can benefit (especially the users if we accomplish shipping more features more reliably).
+
+There are a few main DevOps solutions we will be focusing on in CIS 188:
+  - Automated testing and deployment (we can easily ship new features with testing)
+  - Easy deploy rollback (if something breaks we can revert quickly)
+  - Observability (we know when something is wrong)
+
+### Python
+
+We'll be using Python for most of the development side of the DevOps solutions we cover in this course. It's easy to learn, there is wide library support, and it is common and well supported in the infrastructure space.
+
+### Packaging
+
+Writing code is useful, reusing code is useful++. Making sure that everyone has access to the right packages and is also using the correct version of that package is no easy task. We'll look at a couple of solutions for this throughout the course (take a look that the Poetry demo).
+
+### HTTP
+
+This is the protocol behind the web. The model is client/server where the client requests something from the server, and the server responds to that request with the desired result. The server will serve many clients. It's super important to us to understand how HTTP works. If we run into issues with our deployments, understanding how HTTP works to communicate over the web is going to be vital in addressing the problem.
+
+### HTTP Request Components
+
+We have four main components in any HTTP request:
+ - Method: What do we want to do?
+ - URL : Where are we sending the request?
+ - Headers: Metadata about the request and how to handle it
+ - Body: The data associated with the request
+
+### HTTP Methods
+
+There are a number of HTTP methods, but we will use primarily these four:
+ - GET
+   - No body
+   - Idempotent (same request gets the same result)
+   - URL parameters (http://youtube.com/?search=avatar)
+   - Common use case is to retrieve the content of a webpage
+ - POST
+   - Has a body.
+   - Will have side effects (posting a comment on a post)
+   - Common use case is form submission (think user registration)
+ - PUT
+   - Puts the body onto the server
+   - Idempotent
+   - Common use case is file upload (profile picture)
+ - DELETE
+   - Deletes the resource at the given URL (assuming you have permissions)
+   - Common use case is deleting a file (deleting your profile picture)
+
+### HTTP URLs
+
+A URL like `https://httpstat.us/200` has three components to it:
+  - `https`: This is the protocol (how we communicate with the host)
+  - `httpstat.us`: This is the host (the place we are communicating with)
+  - `/200`: This is the path (what resource we want to access on the host)
+
+### HTTP Headers
+
+Headers pass metadata about the request. Here are some examples:
+  - Authentication (include some header that verifies your identity)
+  - Caching (we can have a header that saves the age of the request for caching purposes)
+  - Conditionals (an example may be are you on mobile or browser?)
+  - Cookies (Browser information that is passed to the HTTP server as a header)
+  - Body info (is it in XML, JSON, or something else?)
 
 ## Demos
 
