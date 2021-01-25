@@ -50,7 +50,7 @@ Package operations: 1 install, 0 updates, 0 removals
   • Installing numpy (1.19.5)
 ```
 
-Now, Poetry actually does two things here. It downloads NumPy, but before that it actually creates a virtual environment which we are going to use to run our Python code. If we wanted to use a deprecated version of Python (like Python 2) we could configure Poetry to setup the virtual environment so it runs an older release of Python. Again, you will see a new file in your directory, this is the `poetry.lock` file that doesn't make much sense to humans but tracks which packages your program depends on and the version number of those packages.
+Now, Poetry actually does two things here. It downloads NumPy, but before that it actually creates a virtual environment which we are going to use to run our Python code. If we wanted to use a deprecated version of Python (like Python 2) we could configure Poetry to setup the virtual environment so it runs an older release of Python. Again, you will see a new file in your directory, this is the `poetry.lock` file. It doesn't make much sense to humans, but the `poetry.lock` file tracks which packages your program depends on and the version number of those packages.
 
 Finally, let's run some code on Poetry's virtual environment. There are two ways that you will run python programs with Poetry. The first is you can type `poetry run script.py` and this would run a Python script in the Poetry environment, but instead we will be opening a new shell that will have the Poetry virtual environment as our default Python environment:
 
