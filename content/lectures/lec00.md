@@ -13,11 +13,11 @@ Hello world! This is the first lecture.
 
 ### Poetry
 
-One reacurring design pattern we see in DevOps is package managers. This is a tool that helps manage your program's dependencies. In other words, the package manager is in charge of keeping track of what packages your project needs to run correctly, and then downloading those packages in a way that makes it easy for your program to use this auxillary code.
+One reoccurring design pattern we see in DevOps is package managers. This is a tool that helps manage your program's dependencies. In other words, the package manager is in charge of keeping track of what packages your project needs to run correctly, and then downloading those packages in a way that makes it easy for your program to use this auxillary code.
 
 We'll look at a few different package managers over the course of the semester. Node has one called NPM (Node Package Manager), Java has a package manager called Maven, and Python has a few offerings. Note that these package managers are all a little different because they work with different languages that all have different nuances. This is why we can't reuse package managers across languages.
 
-The Python package manager we'll be using is called Poetry. Essentially, Poetry allows you to download certain Python libraries, then it creates a virtual python environment on your machine to run your code with the given libraries. So, why the virtual environment? The answer is that Python varies a lot from version to version (especially Python 2 compared to Python 3). The virtual environment ensures that you, your team of developers, and your production environment are all on the same version of Python. This way we can avoid any issues and bugs that may arise from code that's written to work on one version of Python actaully being run with a different version of Python.
+The Python package manager we'll be using is called Poetry. Essentially, Poetry allows you to download certain Python libraries, then it creates a virtual python environment on your machine to run your code with the given libraries. So, why the virtual environment? The answer is that Python varies a lot from version to version (especially Python 2 compared to Python 3). The virtual environment ensures that you, your team of developers, and your production environment are all on the same version of Python. This way we can avoid any issues and bugs that may arise from code that's written to work on one version of Python actually being run with a different version of Python.
 
 Now, let's get into how to actually use Poetry. First, make sure that you have Poetry installed on your machine, instructions for installation can be found [here](https://python-poetry.org/docs/).
 
