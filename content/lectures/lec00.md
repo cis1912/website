@@ -77,4 +77,28 @@ array([[-2. ,  1. ],
 $ exit
 ```
 
-It looks like NumPy works! This means that Poetry has been properly able to manage our dependencies so that they are accessible when we run our Python code with Poetry.
+It looks like NumPy works! This means that Poetry has been properly able to manage our dependencies so that they are accessible when we run our Python code with Poetry. Now, let's make a simple Python file and have Poetry run it. Create a new file called `average.py` in the same directory as your `pyproject.toml` and `poetry.lock` and paste this code into it:
+```
+import sys
+import numpy as np
+
+if len(sys.argv) < 2:
+    print("Not enough command line arguments")
+    exit()
+
+xs = []
+try:
+    for i in range(1, len(sys.argv)):
+        xs.append(int(sys.argv[i]))
+except:
+    print("Command line arguments are not integers")
+    exit()
+
+print(np.average(np.asarray(xs)))
+```
+Now, we can run this in the virtual environment created by Poetry:
+```
+$ poetry run average.py 1 2 3
+2.0
+```
+Awesome, it looks like this is working, too. Try changing around the command line arguments!
