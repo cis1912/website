@@ -26,7 +26,10 @@
             {{ range $asst := .Params.assignments }}
                 {{ $path := $asst | printf "/homeworks/%s" | printf "%s" }}
                 {{ with $.Site.GetPage $path }}
-                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                    <!--
+                      <a href="{{ .Permalink }}">{{ .Title }}</a>
+                    -->
+                    {{ .Title }}
                 {{ end }}
                 <span class="delimiter"> | </span>
             {{ else }}
