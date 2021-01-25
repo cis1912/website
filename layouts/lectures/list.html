@@ -29,7 +29,7 @@
                     <!--
                       <a href="{{ .Permalink }}">{{ .Title }}</a>
                     -->
-                    {{ $asst }}: {{ .Title }}
+                    {{ $asst | upper }}: {{ .Title }}
                 {{ end }}
                 <span class="delimiter"> | </span>
             {{ else }}
