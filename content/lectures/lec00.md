@@ -98,7 +98,7 @@ print(np.average(np.asarray(xs)))
 ```
 Now, we can run this in the virtual environment created by Poetry:
 ```
-$ poetry run average.py 1 2 3
-2.0
+$ poetry run python average.py 1 2 3 4
+2.5
 ```
 Awesome, it looks like this is working, too. Try changing around the command line arguments!
