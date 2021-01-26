@@ -21,13 +21,13 @@ HTTP is the protocol behind the web. It operates on the client/server model: the
 
 We have four main components in any HTTP request:
  - Method: What do we want to do? 
-  - Verbs like GET, POST, PUT
+   - Verbs like GET, POST, PUT
  - URL : Where are we sending the request?
  - Headers: Metadata about the request and how to handle it
-  - Computer's client ID
-  - Caching settings
+   - Computer's client ID
+   - Caching settings
  - Body: The data associated with the request
-  - Final submission step of a form is a POST request with a body as the form data.
+   - Final submission step of a form is a POST request with a body as the form data.
 
 ## HTTP Methods
 
@@ -65,12 +65,16 @@ A URL like `https://httpstat.us/200` has three components to it:
 
 Headers pass metadata about the request. Here are some examples:
   - Authentication (include some header that verifies your identity)
+    - [`Authorization`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization)
+    - [`WWW-Authenticate`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate)
   - Caching (we can have a header that saves the age of the request for caching purposes)
-  - Conditionals (an example may be are you on mobile or browser?)
+    - [`Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
+    - [`ETag`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag)
   - Cookies (Browser information that is passed to the HTTP server as a header)
+    - [`Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie)
   - Body info (is it in XML, JSON, or something else?)
-    - `Content-Type`
-    - `Content-Length`
+    - [`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
+    - [`Content-Length`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length)
 
 ## Body
 
