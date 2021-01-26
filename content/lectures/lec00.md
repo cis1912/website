@@ -7,7 +7,7 @@ slides: https://docs.google.com/presentation/d/1tUFsV_Df2ZB_N8zjG-w9coywL_mYAOGm
 draft: false
 ---
 
-# Lecture One: Introduction
+# Lecture Zero: Introduction
 
 ## Housekeeping
 

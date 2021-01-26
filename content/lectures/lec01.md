@@ -7,7 +7,7 @@ slides: https://docs.google.com/presentation/d/1FVklEogqEGn6zsp8YOpCuynUCCvhB6mX
 draft: false
 ---
 
-# Lecture Two: HTTP
+# Lecture One: HTTP
 
 ## Motivation
 DevOps is a philsophy, but infrastructure engineering is an important knowledge base for DevOps work. At least a cursory understanding of networking, specifically the HTTP protocol, is important for understanding the infrastructure behind the web, which is what we'll be covering for the rest of the lecture.
