@@ -10,7 +10,7 @@ draft: false
 
 ### Docker
 
-As a short introduction to Docker, we're going to pull down a Docker image running Ubuntu and run that image in a container on our machine. To get started, first ensure that Docker Desktop is up and running on your machine. Then, we can pull the latest verision of Ubuntu, a Linux distribution which will run on our container (you can read more [here](https://hub.docker.com/_/ubuntu?tab=description&page=1&ordering=last_updated)):
+As a short introduction to Docker, we're going to pull down a Docker image running Ubuntu and run that image in a container on our machine. To get started, first ensure that Docker Desktop is up and running on your machine. Then, we can pull the latest version of Ubuntu, a Linux distribution which will run on our container (you can read more [here](https://hub.docker.com/_/ubuntu?tab=description&page=1&ordering=last_updated)):
 
 ```
 $ docker pull ubuntu:latest
@@ -23,7 +23,7 @@ Status: Downloaded newer image for ubuntu:latest
 docker.io/library/ubuntu:latest
 ```
 
-It's important to note here that when we tell Docker to pull the latest verison of Ubuntu, it actually does three seperate pulls from three seperate images. This is becauase Docker images are build inheriently from layers. Each pull is for a seperate layer of the image, and they are built on top of each other to produce the final product.
+It's important to note here that when we tell Docker to pull the latest version of Ubuntu, it actually does three separate pulls from three separate images. This is because Docker images are build inherently from layers. Each pull is for a different layer of the image, and they are built on top of each other to produce the final product.
 
 When you think about it, this is a really smart way to create Docker images. Let's imagine a Docker container that runs Redis, the caching server that acts as a data store. To run Redis, we first need to have a Linux distribution installed, so we can add that as a lower layer of the Docker image which Redis then builds on top of by installing the specific Redis software.
 
@@ -48,7 +48,7 @@ VERSION_CODENAME=focal
 UBUNTU_CODENAME=focal
 ```
 
-We can see that the Docker container is running a fresh install of Ubuntu. Now, we could do all manner of things with this Ubuntu container: install new software, expose ports, connect to a network, run a web server, etc. However, actually doing these things manually within the Ubuntu terminal is _not_ reproducible; we would have to perform those same operations every time we wanted to spin up a new container. Hence, a Dockerfile. When we write a Dockerfile it is essentially a roadmap for how the Docker image should be run, so that all of the installation and configuration of whatever toolchain we need on our container can be written out concisely once and only once.
+We can see that the Docker container is running a fresh install of Ubuntu. Now, we could do all manner of things with this Ubuntu container: install new software, expose ports, connect to a network, run a web server, etc. However, actually doing these things manually within the Ubuntu terminal is _not_ reproducible; we would have to perform those same operations every time we wanted to spin up a new container. Hence, a Dockerfile. When we write a Dockerfile it is essentially an instruction manual for how the Docker image should be run, so that all of the installation and configuration of whatever toolchain we need on our container can be written out concisely once and only once.
 
 However, feel free to try out different commands or installing different software on the Ubuntu container. It works the same as any other Linux command line interface and there is a lot you can do with it.
 
@@ -63,10 +63,12 @@ $ git clone https://github.com/cis188/website.git
 $ cd website/static/demos/node_demo
 ```
 
-Before we carry on to modifying the application, there is a little nuance in the Dockerfile that we should underscore. Taking a look inside the Dockerfile, note that we copy over the `packagae.json` and `package-lock.json` files before installing our dependencies:
+First, take a look at the different files in `node_demo` to get a sense of how package dependencies are being managed and how the Docker Container is configured. Within the Dockerfile there are descriptions of every command explaining their purpose, definitely read through this and as it will be helpful when you write your own Dockerfile for the homework!
+
+Before we carry on to modifying the application, there is a little nuance in the Dockerfile that we should underscore. Taking a look inside the Dockerfile, note that we copy over the `package.json` and `package-lock.json` files before installing our dependencies:
 
 ```
-# Copy over package.json and packaage-lock.json (these files
+# Copy over package.json and package-lock.json (these files
 # contain the necessary dependencies for our project)
 COPY package*.json ./
 
@@ -74,7 +76,7 @@ COPY package*.json ./
 RUN npm install
 ```
 
-Why don't we just install the dependencies and then copy everything over at once? The answer is that Docker is smart and if the files `packagae.json` and `package-lock.json` have not changed, it can skip the following build steps where it installs the dependencies and copies them over. This works because the two files `packagae.json` and `package-lock.json` contain all of the Node dependencies, so if they have not changed we know that the dependencies have not changed.
+Why don't we just install the dependencies and then copy everything over at once? The answer is that Docker is smart and if the files `package.json` and `package-lock.json` have not changed, it can skip the following build steps where it installs the dependencies and copies them over. This works because the two files `package.json` and `package-lock.json` contain all of the Node dependencies, so if they have not changed we know that the dependencies have not changed.
 
 Now, let's build the Docker image and start up the Docker container (make sure you've entered the `node_demo` directory):
 
