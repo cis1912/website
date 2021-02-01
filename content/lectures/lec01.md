@@ -59,9 +59,9 @@ this is because the HTTP server hosting our course website is only expect GET re
 
 Here's another example that queries a public weather API:
 ```
-$ http GET api.openweathermap.org/data/2.5/weather appid=ee5663bb9450273b46632b11e97ad6ad q=Philadelphia
+$ http GET api.openweathermap.org/data/2.5/weather appid==ee5663bb9450273b46632b11e97ad6ad q==Philadelphia
 ```
-here we are including in the request two parameters `appid=ee5663bb9450273b46632b11e97ad6ad` and `q=Philadelphia`, because this is a GET request these are included as URL parameters, if we instead send a POST request we can include the `--form` tag so that HTTPie includes these parameters in the post body. The first parameter is just an API key that the course instructors generated ahead of time, but the second parameter you can change to see current weather updates anywhere on Earth!
+here we are including in the request two parameters `appid==ee5663bb9450273b46632b11e97ad6ad` and `q==Philadelphia`, because this is a GET request these are included as URL parameters, if we instead send a POST request we can include the `--form` tag so that HTTPie includes these parameters in the post body. The first parameter is just an API key that the course instructors generated ahead of time, but the second parameter you can change to see current weather updates anywhere on Earth!
 
 ### Postman
 
