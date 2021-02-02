@@ -23,29 +23,35 @@ The internet is built in layers that allow us to abstract away a lot of the comp
 
 ## Internet Protocol (IP)
 
-IP is the lowest level of abstraction that we will uncover in this course. You can think of an IP address as a single atomic element that lives on a network. A computer is given a IP address that consists of four octets (32 bits of data) separated by dots.
+IP is the lowest level of abstraction that we will uncover in this course. You can think of an IP address as a single atomic element that lives on a network. A computer is given a IP address that consists of four octets (32 bits of data) separated by dots. A subnet is a subset of all IP addresses available. The IP ranges given for Loopback and Private IPs below represent subnets, but a subnet can be any range of IPs.
 
 There are a few special IP addresses that you might become familiar with:
 - Loopback
   - 127.0.0.0 - 127.255.255.255 (127.0.0.0/8)
-- Private
+- Private: Only for devices on the inside of the local network, are never surfaced publicly
   - 10.0.0.0 - 10.255.255.255 (10.0.0.0/8)
   - 172.16.0.0 - 172.31.255.255 (172.16.0.0/12)
   - 192.168.0.0 - 192.168.255.255 (192.168.0.0/16)
+  
+If you'd like to see your IP address on your machine, you can run one of these commands depending on your OS:
+
+- Linux: `ip addr show`
+- Mac: `ifconfig`
+- Windows: `ipconfig \all`
+
 
 ## Visualizing the Network
 
 Say we have two machines on a subnet, this means that these machines know each other exist, and they can communicate, but they don't know _how_ to communicate. They need some shared language that will allow them to send information back and forth between them.
 
-## A Note: IPv6
+## A Note on IPv6
 
 The four octets in IPv4 only gives us 32 bits of data to specify an IP address, this gives us 2^(32) = 4,294,967,296 possible IP addresses. When IPv4 was invented that seemed like more than we would ever need, but nowadays every smartphone, TV, PlayStation, or laptop might need an IP address. The solution was IPv6 which allowed for 128 bits of data in IP addresses, drastically expanding the number of available IP addresses.
 
-However, IPv6 has really struggled with adoption because network engineers aren't too keen on migrating all of their technology to IPv6. Many big tech companies have adopted IPv6 internally, but outside of that few people have switched over. In this class we will use IPv4.
+However, IPv6 has really struggled with adoption because network engineers aren't too keen on migrating all of their technology to IPv6. 45% of network traffic in the US happens over IPv6, but that's because many big tech companies have adopted IPv6 on their internal networks. Outside of that, few people have switched over, so we'll use IPv4 throughout this class.
 
-Lastly, between IPv4 and IPv6 there was an IPv5, but it was brittle and proprietary and everyone decided it was no good.
 
-## Transport: TCP
+## Transport Layer: TCP
 
 TCP is this shared language that is layered on top of IP to allow for a shared language between computers. TCP has robust error-checking to ensure that all of the information transmitted over the internet actually gets to the destination. This error-checking can also cause a delay though as it requires the person receiving the data to also send back a confirmation that they got everything.
 
@@ -72,12 +78,77 @@ This `ss` command that allows us to examine the TCP ports on our machine. Here w
 
 One key point is that in the `Local Address:Port` column we see both `0.0.0.0` and `127.0.0.1`. When we see `0.0.0.0` this means that the port can be connected to by an machine with any IP address. Conversely, when we se `127.0.0.1` this means that the process on this port can only be connected to from the host machine itself. Some examples might be if you are running a local database for a webserver, you only want your host machine to write to that database and not outside users.
 
-## Application: HTTP
+## Application Layer: HTTP
 
 Now we layer on top of TCP up to the application layer where we implement HTTP. We can see how HTTP uses TCP which uses IP so the layers of the internet are starting to come together.
 
-As we discussed previously, HTTP runs on a client-server model and this protocol is what powers most of the communication on the internet.
+HTTP is the protocol behind the web. It operates on the client/server model: the client requests something from the server, and the server responds to that request with the desired result. The server will serve many clients. HTTP underlies the orchestration that we will build up to throughout the course, and so it's important to start with foundational understanding. If we run into issues with our deployments, knowledge of how HTTP enables communication over the web is going to be vital in addressing the problem.
 
+## Components of a HTTP Request
+
+ There are four main components of any HTTP request:
+  - Method: What do we want to do? 
+    - Verbs like GET, POST, PUT
+  - URL : Where are we sending the request?
+  - Headers: Metadata about the request and how to handle it
+    - Computer's client ID
+    - Caching settings
+  - Body: The data associated with the request
+    - For example, final submission step of a form is a POST request with a body as the form data.
+    
+### HTTP Methods
+
+ There are a number of HTTP methods, but we will use primarily these four:
+  - GET
+    - No body
+    - Idempotent (same request gets the same result)
+    - No side effects
+    - URL parameters (http://youtube.com/?search=avatar)
+    - Common use case is to retrieve the content of a webpage
+  - POST
+    - Has a body.
+    - Will have side effects (posting a comment on a post)
+    - Common use case is form submission (think user registration)
+  - PUT
+    - Puts the body onto the server
+    - Idempotent
+    - Common use case is file upload (profile picture)
+     - Putting the same file onto the server multiple times should only upload one file
+  - DELETE
+    - Deletes the resource at the given URL (assuming you have permissions)
+    - Common use case is deleting a file (deleting your profile picture)
+
+Idempotency is an important concept with HTTP, but also in DevOps more broadly. Many times when dealing with infrastructure you want to be able to retry an action, but don't want to actually perform that action multiple times if two requests happen to both succeed.
+
+
+### HTTP URLs
+
+A URL like `https://httpstat.us/200` has three components to it:
+   - `https`: This is the protocol (how we communicate with the host)
+   - `httpstat.us`: This is the host (the place we are communicating with)
+     - The port defaults for 80 for HTTP and 443 for HTTPS, but you can also specify with `:port` after the host.
+   - `/200`: This is the path (what resource we want to access on the host)
+
+### HTTP Headers
+
+Headers pass metadata about the request. Here are some examples:
+   - Authentication (include some header that verifies your identity)
+     - [`Authorization`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization)
+     - [`WWW-Authenticate`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate)
+   - Caching (we can have a header that saves the age of the request for caching purposes)
+     - [`Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
+     - [`ETag`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag)
+   - Cookies (Browser information that is passed to the HTTP server as a header)
+     - [`Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie)
+   - Body info (is it in XML, JSON, or something else?)
+     - [`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
+     - [`Content-Length`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length)
+
+### Body
+
+The body is used to pass chunks of data along with the requests. Pretty straighforward, is generally text that's given in a format specified by the `Content-Type` header.
+ 
+ 
 ## Example Request
 
 ```
@@ -93,18 +164,18 @@ $ curl -vv 'httpstat.us/200'
 
 Here we can see that when we send an HTTP request, we first establish a TCP connection with the host on a given port (typically port 80 for HTTP) and then we transmit the HTTP request (method, headers, and body) through the TCP connection.
 
-Note that for each HTTP request, a new TCP connection is established to transport the information. There is some overhead to creating an TCP connection, so this is something that newer transport protocols like QUIC have attempted to improve upon.
+Note that for each HTTP request up to version 1.1, a new TCP connection is established to transport the information. There is some overhead to creating an TCP connection, so this is something that newer transport protocols like [HTTP/2](https://en.wikipedia.org/wiki/HTTP/2) and [QUIC](https://en.wikipedia.org/wiki/QUIC) have attempted to improve upon.
 
 Another solution is websockets which are built on top of HTTP to establish a persistent and bidirectional connection between two computers. This is great for use cases where small amount of information have to be sent often, like a chat server.
 
-## HTTP Response Comments
+## Components of HTTP Responses
 
 When you make a request to an HTTP server, it sends you back a response. The HTTP response looks similar to the HTTP request:
 - Status Code: A number indicating the status of the response.
 - Headers: Metadata about the response, similar to those in the request.
 - Body: The actual data within the response (when you request a webpage, this would be the HTML that your browser will compile and display on your screen).
 
-## Status Codes
+### Status Codes
 
 The status codes are organized by the first digit in the 3-digit code:
 - 2xx: Success
@@ -124,4 +195,5 @@ The status codes are organized by the first digit in the 3-digit code:
   - 500: Internal Server Error (maybe you made a syntax error in your Python code)
   - 503: Service Unavailable
 
-No need to remember these status codes because they're uniform across all of the internet, so it's super easy just to look them up if you encounter them. Normally the status code will be able to point you in the right direction if you're having trouble with HTTP communication.
+No need to remember these status codes because they're uniform across all of the internet, so it's super easy just to look them up if you encounter them. Normally, googling the status code will be able to point you in the right direction if you're having trouble with HTTP communication.
+
