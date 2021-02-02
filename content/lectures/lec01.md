@@ -26,7 +26,7 @@ The internet is built in layers that allow us to abstract away a lot of the comp
 IP is the lowest level of abstraction that we will uncover in this course. You can think of an IP address as a single atomic element that lives on a network. A computer is given a IP address that consists of four octets (32 bits of data) separated by dots. A subnet is a subset of all IP addresses available. The IP ranges given for Loopback and Private IPs below represent subnets, but a subnet can be any range of IPs.
 
 There are a few special IP addresses that you might become familiar with:
-- Loopback
+- Loopback: IP addresses on the local machine.
   - 127.0.0.0 - 127.255.255.255 (127.0.0.0/8)
 - Private: Only for devices on the inside of the local network, are never surfaced publicly
   - 10.0.0.0 - 10.255.255.255 (10.0.0.0/8)
