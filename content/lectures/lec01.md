@@ -44,7 +44,7 @@ If you'd like to see your IP address on your machine, you can run one of these c
 
 Say we have two machines on a subnet, this means that these machines know each other exist, and they can communicate, but they don't know _how_ to communicate. They need some shared language that will allow them to send information back and forth between them.
 
-![Subnet Diagram](/img/lec01-vis1.png)
+![Subnet Diagram](/img/lec01/vis1.png)
 
 ## A Note on IPv6
 
