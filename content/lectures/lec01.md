@@ -25,7 +25,7 @@ The internet is built in layers that allow us to abstract away a lot of the comp
 
 IP is the lowest level of abstraction that we will uncover in this course. You can think of an IP address as a single atomic element that lives on a network. A computer is given a IP address that consists of four octets (32 bits of data) separated by dots. A subnet is a subset of all IP addresses available. The IP ranges given for Loopback and Private IPs below represent subnets, but a subnet can be any range of IPs.
 
-There are a few special IP addresses that you might become familiar with:
+There are a few special subnets that you might become familiar with:
 - Loopback: IP addresses on the local machine.
   - 127.0.0.0 - 127.255.255.255 (127.0.0.0/8)
 - Private: Only for devices on the inside of the local network, are never surfaced publicly
@@ -44,6 +44,8 @@ If you'd like to see your IP address on your machine, you can run one of these c
 
 Say we have two machines on a subnet, this means that these machines know each other exist, and they can communicate, but they don't know _how_ to communicate. They need some shared language that will allow them to send information back and forth between them.
 
+![Subnet Diagram](/img/lec01-vis1.png)
+
 ## A Note on IPv6
 
 The four octets in IPv4 only gives us 32 bits of data to specify an IP address, this gives us 2^(32) = 4,294,967,296 possible IP addresses. When IPv4 was invented that seemed like more than we would ever need, but nowadays every smartphone, TV, PlayStation, or laptop might need an IP address. The solution was IPv6 which allowed for 128 bits of data in IP addresses, drastically expanding the number of available IP addresses.
@@ -53,15 +55,15 @@ However, IPv6 has really struggled with adoption because network engineers aren'
 
 ## Transport Layer: TCP
 
-TCP is this shared language that is layered on top of IP to allow for a shared language between computers. TCP has robust error-checking to ensure that all of the information transmitted over the internet actually gets to the destination. This error-checking can also cause a delay though as it requires the person receiving the data to also send back a confirmation that they got everything.
+TCP is a protocol that is layered on top of IP to allow for a shared language between computers. TCP has robust error-checking to ensure that all of the information transmitted over the internet actually gets to the destination. This error-checking can also cause latency and congestion issues as it requires the person receiving the data to also send back a confirmation that they got everything.
 
 TCP also introduces the concept of ports. This is a number ranging from 1-65535 that allows for differentiating between connection types. Typically ports are designated for a specific kind of connection: HTTP is port 80, SSH is port 22, MySQL is port 3306. You can actually configure your machine to listen for whatever kind of connection on whichever port, but you'll confused everyone else who is expecting specific connection types on specific ports.
 
 TCP also allows for multiple concurrent connections. For example, you could have a number of users all connecting to port 80 on an HTTP server and TCP would still be able to manage these connections. This is an essential feature, if we could only establish a single connection the client-server model could never work in networking.
 
 There are some alternatives to TCP:
-- UDP: This protocol is quite similar to TCP but without the error checking. This is great when you want data to be sent fast, and don't care too much about correctness. If you're streaming a show on Netflix, you won't notice if some pixels are flipped during a single frame of the show, so better to be fast than correct.
-- QUIC: This protocol is built on UDP and is driver for HTTP/3 and will hopefully resolve some of the slowdown that comes from TCP error-checking.
+- UDP: This protocol is quite similar to TCP but without the error checking. This is great when you want data to be sent fast, and don't care too much about correctness. If you're in a Zoom call, you won't notice if some pixels are flipped during a single frame or some audio is warbled as long as the call keeps up with real time, so better to be fast than correct.
+- QUIC: This protocol is built on UDP and is driver for HTTP/3 and will hopefully resolve some of the latency issues that come from TCP error-checking.
 
 ## Socket Status
 
@@ -118,7 +120,9 @@ HTTP is the protocol behind the web. It operates on the client/server model: the
     - Deletes the resource at the given URL (assuming you have permissions)
     - Common use case is deleting a file (deleting your profile picture)
 
-Idempotency is an important concept with HTTP, but also in DevOps more broadly. Many times when dealing with infrastructure you want to be able to retry an action, but don't want to actually perform that action multiple times if two requests happen to both succeed.
+Idempotency is an important concept with HTTP, but also in DevOps more broadly. An operation is idempotent when, no matter how many times it is performed on a system, the system only changes as if it was performed once. A simple example is multiplying a non-zero integer by zero. `4*0=0`, and `4*0*0=0` and so on. The "multiply by zero" operation has an effect on the resulting product the first time, but any more applications of the operation won't change the outcome.
+
+Bringing this back to DevOps, there are many times when you want to be able to retry an action, but don't want to actually perform that action multiple times if two requests happen to both succeed. If you want to provision a virtual machine on a cloud provider, retrying the "provision" action shouldn't result with you having two virtual machines, paying twice what you expected to pay.
 
 
 ### HTTP URLs
@@ -166,7 +170,7 @@ Here we can see that when we send an HTTP request, we first establish a TCP conn
 
 Note that for each HTTP request up to version 1.1, a new TCP connection is established to transport the information. There is some overhead to creating an TCP connection, so this is something that newer transport protocols like [HTTP/2](https://en.wikipedia.org/wiki/HTTP/2) and [QUIC](https://en.wikipedia.org/wiki/QUIC) have attempted to improve upon.
 
-Another solution is websockets which are built on top of HTTP to establish a persistent and bidirectional connection between two computers. This is great for use cases where small amount of information have to be sent often, like a chat server.
+Another solution is websockets which are built on top of HTTP to establish a persistent and bidirectional connection between two computers. This is great for use cases where small amounts of information have to be sent often, like a chat server.
 
 ## Components of HTTP Responses
 
