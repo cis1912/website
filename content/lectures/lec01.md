@@ -89,34 +89,34 @@ HTTP is the protocol behind the web. It operates on the client/server model: the
 ## Components of a HTTP Request
 
  There are four main components of any HTTP request:
-  - Method: What do we want to do? 
+- Method: What do we want to do? 
     - Verbs like GET, POST, PUT
-  - URL : Where are we sending the request?
-  - Headers: Metadata about the request and how to handle it
+- URL : Where are we sending the request?
+- Headers: Metadata about the request and how to handle it
     - Computer's client ID
     - Caching settings
-  - Body: The data associated with the request
+- Body: The data associated with the request
     - For example, final submission step of a form is a POST request with a body as the form data.
     
 ### HTTP Methods
 
  There are a number of HTTP methods, but we will use primarily these four:
-  - GET
+- GET
     - No body
     - Idempotent (same request gets the same result)
     - No side effects
     - URL parameters (http://youtube.com/?search=avatar)
     - Common use case is to retrieve the content of a webpage
-  - POST
+- POST
     - Has a body.
     - Will have side effects (posting a comment on a post)
     - Common use case is form submission (think user registration)
-  - PUT
+- PUT
     - Puts the body onto the server
     - Idempotent
     - Common use case is file upload (profile picture)
-     - Putting the same file onto the server multiple times should only upload one file
-  - DELETE
+        - Putting the same file onto the server multiple times should only upload one file
+- DELETE
     - Deletes the resource at the given URL (assuming you have permissions)
     - Common use case is deleting a file (deleting your profile picture)
 
@@ -128,25 +128,25 @@ Bringing this back to DevOps, there are many times when you want to be able to r
 ### HTTP URLs
 
 A URL like `https://httpstat.us/200` has three components to it:
-   - `https`: This is the protocol (how we communicate with the host)
-   - `httpstat.us`: This is the host (the place we are communicating with)
-     - The port defaults for 80 for HTTP and 443 for HTTPS, but you can also specify with `:port` after the host.
-   - `/200`: This is the path (what resource we want to access on the host)
+- `https`: This is the protocol (how we communicate with the host)
+- `httpstat.us`: This is the host (the place we are communicating with)
+  - The port defaults for 80 for HTTP and 443 for HTTPS, but you can also specify with `:port` after the host.
+- `/200`: This is the path (what resource we want to access on the host)
 
 ### HTTP Headers
 
 Headers pass metadata about the request. Here are some examples:
-   - Authentication (include some header that verifies your identity)
+- Authentication (include some header that verifies your identity)
      - [`Authorization`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization)
-     - [`WWW-Authenticate`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate)
-   - Caching (we can have a header that saves the age of the request for caching purposes)
-     - [`Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
-     - [`ETag`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag)
-   - Cookies (Browser information that is passed to the HTTP server as a header)
-     - [`Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie)
-   - Body info (is it in XML, JSON, or something else?)
-     - [`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
-     - [`Content-Length`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length)
+    - [`WWW-Authenticate`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate)
+- Caching (we can have a header that saves the age of the request for caching purposes)
+    - [`Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
+    - [`ETag`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag)
+- Cookies (Browser information that is passed to the HTTP server as a header)
+    - [`Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie)
+- Body info (is it in XML, JSON, or something else?)
+    - [`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
+    - [`Content-Length`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length)
 
 ### Body
 
