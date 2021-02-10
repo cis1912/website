@@ -10,59 +10,61 @@ draft: false
 
 ## Portability
 
-Recall all of the issues that we've run into trying transfer code that we developed on our local machine to a remote host in the cloud. We want to be able to take our application code, and seamlessly run it on another machine. How can we avoid all of the dependency and versioning issues we ran into when we manually deployed to EC2?
+Recall all of the issues that we've run into trying transfer code that we developed on our local machine to a remote host in the cloud. We want to be able to take our application code, and seamlessly run it on another machine. Along with Python dependencies, we needed to make sure that system resources, including Python and Poetry themselves, were also installed as expected. How can we avoid all of the dependency and versioning issues we ran into when we manually deployed to EC2?
+
+We were able to use Poetry and get all of the *reproducibility* benefits when we deployed to EC2, but just because a build is reproducible does *not* mean that it's **portable**.
 
 The intuition here is that we essentially want to _send a copy of our local computer_ to whoever is going to be running our code.
 
 ## Containers
 
-Containers allow us to package minimal operating systems as "images" which includes everything our program needs to run. Once we've created the image, we can send it to anyone, and they will be able to build it on their machine to run our code.
+Containers allow us to package minimal operating systems as "images" which includes everything our program needs to run. Once we've created the image, we can send it to anyone, and they will be able to build it on their machine to run our code. If you've used Virtual Machines in previous classes, you can think of container images as analogous to VM images, but with much less overhead.
 
-Beyond just being able to send the image to another person, we want them to be able to build and run the image with the same commands that we use to build and run the images. This way we can send someone an image and say "here is the image, here are the commands to start it, we know for certain it will work."
+We can also build the image locally and send the image after it has already been built. This way the receiver can run the container without having to worry about any of the build process.
 
-Finally, we can also build the image locally and send the image after it has already been built. This way the receiver can run the container without having to worry about any of the build process.
-
-As we can see, containers give us a lot of guarantees that make deployment much easier.
+Ideally, the build process itself should also be reproducible. 
 
 ## Docker
 
-Docker is the industry-standard implementation for containers. Dockers key features include:
-- **Lightweight**: Docker bootstraps off of your host OS. Instead of emulating a kernel or other parts of your hardware, Docker uses the host machines kernel and hardware. This is much more efficient than completely emulating these parts of the machine.
-- **Secure**: Docker containers are completely isolated from the host and from other containers, so an application running in a Docker container cannot corrupt your host machine or access any data which is not its own   .
+Docker is the industry-standard implementation for containers. While there are other container implementations, Docker has become something like the "Kindle" or "Kleenex" of container implementations, but there [are](https://coreos.com/rkt/) [other](https://katacontainers.io) [implementations](https://firecracker-microvm.github.io) which have emerged recently and look to be giving Docker a run for its money. 
 
-## Containers vs. Virtual Machines
+The Open Container Image (OCI) format is a general specification for how to build container images originally based on the Docker image format. But other tools built against the OCI specification build compatible containers or run compatible containers, without running any code built by the Docker team. Implementations like [podman](https://containerd.io) and [containerd](https://containerd.io) are compatible with the OCI specification while improving on some ambiguities in the original Docker implementation. Kubernetes has actually [moved away from the Docker implementation](https://kubernetes.io/blog/2020/12/02/dont-panic-kubernetes-and-docker/) recently. We'll use "OCI container", "container", and "Docker container" interchangeably throughout these notes.
 
-For each virtual machine, we fully emulate every piece of hardware that exists on the machine. Every virtual machine does this emulation individually, so if we have many virtual machines they don't share the majority of their resources.
+## Virtual Machines vs. Containers
+
+For each virtual machine, the hypervisor fully emulate every piece of hardware that exists on the machine. Every virtual machine does this emulation individually, so if we have many virtual machines they don't share the majority of their resources. VMs each run their own kernel to talk to the emulated hardware.
 
 ![Virtual Machine Diagram](/img/lec02/vm_vis.png)
 
-Instead, containers share as many resources between multiple containers and with the host OS as possible (while still maintaining privacy and separation). This gives us a huge performance increase because emulation is always slower than actual computation.
+Instead, containers share as many resources between multiple containers and with the host OS as possible (while still maintaining privacy and separation). This gives us a huge performance increase because emulation is always slower than actual computation. This importantly includes the host OS's kernel, which talks to the real hardware on the computer. This makes Docker containers much lighter weight than equivalent VMs.
 
 ![Container Diagram](/img/lec02/container_vis.png)
 
 ## Docker Images
 
-Docker images ideally contain the minimal OS needed to run your application. We only want the files that are needed to run our application and nothing more.
+Docker images ideally contain the minimal OS needed to run your application. We only want the programs that are needed to run our application and nothing more.
 
-Docker images (somewhat like objects in Java) are built in layers. When we create a Docker image, it is always extending another image. This layering allows us to utilize a "copy-on-write" filesystem for each image. This means that the filesystem within the image is completely immutable. Instead, when we make a change to the filesystem, Docker creates an additional image layer with your changes and layers that on top of the most recent image.
+Docker images are built in layers. When we create a Docker image, it is always extending a base image. This is achieved with a "copy-on-write" filesystem for each image. This means that the filesystem within the image is completely immutable during the build process. Instead if modifying a file in-place, Docker will create an additional image layer with your changes on top of the base image.
 
 ![Docker Layering Diagram](/img/lec02/container_vis.png)
 
-Copy-on-write saves us a lot of space because we only ever need one instance of an image installed on our machine, regardless of how many other images build on top of that image. Perhaps we have ten images all running on Ubuntu, we still only need to store one installation of the base Ubuntu image and we will layer the other images on top of that single installation.
+Copy-on-write saves us a lot of space because we only ever need one instance of a base image on a given machine. We might have ten images all running on Ubuntu, we still store only one copy of the base Ubuntu image. The ten derivative images will all create new layers on top of the shared base image.
 
-Note that the successive images which we are layering on top only contain the differences. This saves us space initially (we only save the differences, so we don't store anything twice), but it also means that Docker images strictly increase in size as we continue to layer on top. Be aware of this as you build your images: if you add something and then delete it in a later image, this still increases the size of the image because the differences are still stored.
+The layers also work as a cache. If we make a change to our container specification that only affects our source code, the underlying layers of the container, where we specify the OS and install dependencies like Apache *don't have to be rebuilt*. The container build process can simply rebuild the source code on top of the existing base image, which speeds up build time.
 
-## Docker Runtime
+Note that the successive images which we are layering on top only contain the differences. This saves us space initially (we only save the differences, so we don't store anything twice), but it also means that Docker images strictly increase in size as we continue to add layers on top. Be aware of this as you build your images: if you add something and then delete it in a later image, this still increases the size of the image because the differences are still stored.
 
-Docker runtime uses a "blueprint" to run a container. The blueprint just contains the commands needed to start the application.
+## Container Runtime
 
-A Docker container is a running instance of a Docker image. However, changes that are made during Docker runtime (think logs) are not stored because Docker images are immutable. So if we want to save any changes made during Docker runtime we have to do something other than saving it to the filesystem.
+An important distinction in what we've been talking about so far is what the difference is between a **container** and an **image**. An **image** is a blueprint for an instance of the code you want to run. A **container** is running instance of a Docker image. The Docker **runtime** is what takes an image, creates a container and runs it. 
 
-Docker runtime runs with a single host-wide Docker daemon (depicted in the earlier Docker visualization) which just sits in the background, manages your containers, and processes any requests which you might make with the Docker CLI to interact with the container. Not everyone agrees that this is a good thing, though, because it is a single point of failure.
+A Docker container is a running instance of a Docker image. Containers still employ a copy-on-write filesystem, layered off of the image they were spawned from. This means any new, updated or removed files during the lifetime of a container are *not* persisted after a container is stopped (Side note: the picture is a bit more complex in the original Docker implementation, but clarified with most other OCI-compatible runtimes). This means if we want to save any files that are created within a container while it runs, like log files, we have to do something other than save it to the filesystem.
+
+Docker runtime runs with a single host-wide Docker [daemon](https://en.wikipedia.org/wiki/Daemon_\(computing\)) (depicted in the earlier Docker visualization) which just sits in the background, manages your containers, and processes any requests which you might make with the Docker CLI to interact with the container. Docker's daemon is considered a single point of failure, and so other runtimes manage containers without a long-running, host-wide daemon process.
 
 ## Publishing
 
-If we are sharing an image with someone, we don't want them to have to build the image from scratch. So, we need some way to publish a Docker image for someone else to use.
+If we are sharing an image with someone, we don't want them to have to build the image from scratch every time. So, we need some way to publish a Docker image for someone else to use.
 
 The solution here is a registry where we can publish our images so that others can download them. Common examples include:
 - Docker Hub
@@ -72,7 +74,7 @@ The solution here is a registry where we can publish our images so that others c
 
 These are essentially the same thing as NPM or PIP, but for Docker images instead of code packages.
 
-## Tags
+### Tags
 
 We need some way to identify images so that they are easily available to others. Images name take the form `IMAGE_NAME[:tag]` where `IMAGE_NAME` is the name of your project or repository, and `tag` specifies the version. Examples are `node:latest` and `node:15-buster-slim`. If you don't specify the tag it defaults to `latest`.
 
