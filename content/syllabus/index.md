@@ -33,3 +33,9 @@ using tools discussed in the course.
 ## Course Materials
 
 There is no required textbook for this course. [Lecture notes](/schedule) will be provided that cover everything taught in this course.
+
+## Academic Honesty
+
+This course will abide by the University’s [Code of Academic Integrity](https://catalog.upenn.edu/pennbook/code-of-academic-integrity/).
+
+For this course, you may not view, share or edit another student's homework assignment. However, you are allowed (and strongly encouraged) to use the internet when completing homework assignments. Being able to read Open Source documentation and Stack Overflow posts is a crucial skill in the DevOps field. That being said you are not allowed to make any posts online asking for help. Reading existing posts is allowed, but any questions should be asked during Office Hours or on Piazza.
