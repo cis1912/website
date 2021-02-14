@@ -2,12 +2,10 @@ version: '3'
 
 services:
   docker_compose_demo_container:
-    image: docker_compose_demo_image:latest
-    command: node index.js
+    build: .
     ports:
       - "8080:8080"
     volumes:
       - type: bind
         source: ./log
-        target: /etc/log
-      
+        target: /log
