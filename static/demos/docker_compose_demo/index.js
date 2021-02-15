@@ -9,7 +9,6 @@ const server = http.createServer((req, res) => {
     if (error) {
       return console.log(error);
     }
-    console.log(data);
   });
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
