@@ -3,7 +3,7 @@ title: "Reproducibility: docker compose"
 date: 2021-02-15
 publishDate: 2020-12-01
 assignments: []
-slides: ""
+slides: "https://docs.google.com/presentation/d/1ZunsyTTG3qcqvdzr6lGlrYbH5YQL8zv45IEefrErfa4/edit"
 draft: false
 ---
 
