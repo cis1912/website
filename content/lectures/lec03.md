@@ -19,7 +19,7 @@ Docker compose allows us to automate the process of installing, building, config
 
 So, let's jump right into the example. In lecture, we noted that because Docker uses a copy-on-write filesystem, when changes are made to the filesystem during Docker runtime, those changes are discarded after the container is closed. Let's see if we can write a Docker compose file to create a container that will mount a volume so we can save logs made during the runtime of our program.
 
-If you've already cloned the website repository, you can find the code for this demo in `/static/demos/docker_compose_demo` (if you need instructions for cloning the repository, take a look at the Docker demo from last week). Let's quickly look over the biggest new addition to the demo, `docker_compose.yml`. This is a relatively short file with the contents:
+If you've already cloned the website repository, you can find the code for this demo in `demos/docker_compose_demo` (if you need instructions for cloning the repository, take a look at the Docker demo from last week). Let's quickly look over the biggest new addition to the demo, `docker_compose.yml`. This is a relatively short file with the contents:
 ```
 version: '3'
 services:

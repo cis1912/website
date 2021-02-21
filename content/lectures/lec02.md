@@ -61,7 +61,7 @@ We're going to provide you with some of the starter code for a Node application.
 # Clone the website from Git to your local machine
 $ git clone https://github.com/cis188/website.git
 # Enter the node_demo directory
-$ cd website/static/demos/node_demo
+$ cd website/demos/node_demo
 ```
 
 First, take a look at the different files in `node_demo` to get a sense of how package dependencies are being managed and how the Docker Container is configured. Within the Dockerfile there are descriptions of every command explaining their purpose, definitely read through this and as it will be helpful when you write your own Dockerfile for the homework!
