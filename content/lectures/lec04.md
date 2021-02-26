@@ -11,19 +11,17 @@ draft: false
 
 ## What is Kubernetes?
 
-At the most basic level, Kubernetes is a tool for orchestrating containers. In most scenarios these are Docker containers, but we can actually use Kubernetes to orchestrate any compliant container. This tool will take us from running containers locally to running containers in production.
+At the most basic level, Kubernetes is a tool for orchestrating containers. In most scenarios these are Docker containers, but we can actually use Kubernetes to orchestrate any container that complies to the API specification (even VMs!). This tool will take us from running containers locally to running containers in production.
 
 ## Pods
 
-A pod in Kubernetes is the most basic unit of work. They are **tight couplings** of containers: this means they are containers running on the same machine sharing the same network (though they do not share the same filesystem). Pods can be labelled for querying for later. If we had pods that were running the `bender-catalog` of our application, would could give them key `app` and value `bender-catalog`. This makes it easier to reference them we want to have these pods interact with other pods.
+A pod in Kubernetes is the most basic unit of work. They are **tight couplings** of containers: this means they are containers running on the same machine (node) sharing the same network (though they do not share the same filesystem). Pods can be labelled for querying for later. If we had pods that were running the `bender-catalog` of our application, would could give them key `app` and value `bender-catalog`. This makes it easier to reference them we want to have these pods interact with other pods.
 
 ![Pod Visualization](/img/lec04/pod_vis.png)
 
-In Docker, containers are the smallest unit of work, why don't we stick with that for Kubernetes? Containers are supposed to run a single process, but in Kubernetes we will often want to group multiple processes together. For example if your application requires both FastAPI and a Redis cache, we can group these together into one pod. Note that we can still have a pod that only runs one container, so if we want a container to be the smallest unit of work that is still achievable.
-
 ## Nodes
 
-Nodes are hosts for pods, these are the actual machines that are running your pods. There are two types of pods: worker and main (sometimes referred to as master, but terminology is changing). The worker nodes are the nodes actually performing the work. The main node is the brains of the cluster. When we make changes to our cluster using the Kubernetes API, it is handled by the main node which then makes the appropriate changes to the cluster.
+Nodes are hosts for pods, these are the actual machines (virtual or physical) that are running your pods. There are two types of pods: worker and main (sometimes referred to as master, but terminology is changing). The worker nodes are the nodes actually performing the work. The main node is the brains of the cluster. When we make changes to our cluster using the Kubernetes API, it is handled by the API server on the main node which then makes the appropriate changes to the cluster.
 
 ![Node Visualization](/img/lec04/node_vis.png)
 
@@ -33,9 +31,13 @@ Deployments are groups of pods which are grouped by label. This way we can horiz
 
 ![Deployment Visualization](/img/lec04/deployment_vis.png)
 
+## Labels
+
+Labels are a way to do quick lookups on resources in Kubernetes. Think of them as bookmarks to certain resources or the keys in a dictionary. It's how pods and deployments internally handle their parent-child relationship, and we'll see how labels will link together other resources as well going forward.
+
 ## Services
 
-We have these pods running our programs, but how do we actually interact with them? Each pod has its down IP address, and actually directing requests to the correct pod can be difficult when we have many pods. This is where services come into play. Services are associated with their own IP address, when this IP address is hit by a request, the main node uses the cluster metadata to route you to the correct pod. The services are linked pods by label, so any pod with a specific label will be considered part of the associated service.
+Each pod has its own IP address, but actually directing requests to the correct pod can be difficult when we have many pods. When a deployment has many replicas, the application would have to decide which replica to send a request to. This is where services come into play. Services are associated with their own IP address, when this IP address is hit by a request, the main node uses the cluster metadata to route you to the correct pod. The services are linked to pods by label, so any pod with a specific label will be considered part of the associated service.
 
 ![Service Visualization](/img/lec04/service_vis.png)
 
@@ -55,10 +57,10 @@ We want to deploy the Node app we've been using in previous demos to a local Kub
 ```
 $ cd demos/kube_demo
 # Build the Docker image for Node app and tag it v1
-$ docker build -t node-app:v1
+$ docker build -t node-app:v1 .
 ```
 
-Next, before we can deploy to a Kubernetes cluster, we need to install software that will allow us to run a Kubernetes cluster on our local machine. In this course we will be using Kind (Kubernetes in Docker) which can be installed [here](https://kind.sigs.k8s.io/docs/user/quick-start/#installation). Once we have Kind installed, we can actually create the cluster:
+Next, before we can deploy to a Kubernetes cluster, we need to install software that will allow us to run a Kubernetes cluster on our local machine. In this course we will be using Kind (Kubernetes in Docker) which can be installed [here](https://kind.sigs.k8s.io/docs/user/quick-start/#installation). Since Kubernetes is defined by its API specification, Kubernetes "distros" like Kind have emerged which are 100% API compatible with Kubernetes, but appropriate for different environments, like local development. Once we have Kind installed, we can actually create the cluster:
 ```
 $ kind create cluster --name kube-demo
 Creating cluster "kube-demo" ...
@@ -92,7 +94,7 @@ and we see the manifest with which the pod was created.
 As a sidenote, you might see when reading docs or on discussion forms people using `k get nodes` instead of `kubectl get nodes` or something along these lines. It is a common practice to alias kubectl to `k` on the command line. If you want to do this you can type the command `alias k=kubectl` in your terminal. However, this will only last for the given terminal session (if you close the window or try on other windows, the alias will not work). If you want this alias to be available all of the time, you can add the line `alias k=kubectl` to `~/.bashrc`, the list of "run commands" located in your home directory that are run every time you start a new bash shell.
 
 Now that we have build our Docker image and started our Kubernetes cluster, we want to run the image on the cluster. To do this, we need a Kubernetes manifest, this is what we have in `/k8s/node.yaml`:
-```
+```yaml
 ---
 apiVersion: apps/v1
 kind: Deployment
