@@ -9,7 +9,9 @@ draft: false
 
 # Lecture Three: Docker Compose
 
-## What's Wrong With This?
+## Limitations of Docker as a production run system
+
+We've seen how useful Docker is as a tool and the reasons that we'd want to use it in production. But it doesn't solve all of our problems. Take this `docker run` invocation, for example:
 
 ```
 $ docker run -it \
@@ -27,7 +29,7 @@ $ docker run -it \
   linuxserver/letsencrypt
 ```
 
-Maybe this is easy for the computer to read, but for humans there are numerous drawbacks to writing long console commands like this. For one, they're inaccessible and confusing to people who have less experience with the Docker CLI. Second, how are we going to keep track of this? Perhaps we could throw it in a shell script and commit it to the repository, but shell scripts can be cumbersome to edit and do not always interface well with other programming languages.
+Maybe this is easy for the computer to read, but for humans there are numerous drawbacks to writing long console commands like this. For one, they're inaccessible and confusing to people who have less experience with the Docker CLI. Second, how are we going to keep track of this? Perhaps we could throw it in a shell script and commit it to our repository, but shell scripts can be cumbersome to edit and do not always interface well with other programming languages.
 
 ## Run System Wishlist
 
@@ -42,17 +44,11 @@ If we look at the example from the previous section, we can see that apart from 
 
 ## Docker Compose
 
-The improvement here is Docker Compose. This is a tool that allows us to "compose" multiple Docker containers together, and manage their lifecycles. DOcker has:
-
-- Tool for managing lifecycle of multiple containers simultaneously
-- Handles all runtime settings - environment variables, port mapping, volume binding, etc.
-- Simple user commands
-
-Now, if we look back at our wishlist, we meet all of the criteria.
+The improvement here is Docker Compose. This is a tool that allows us to "compose" multiple Docker containers together, and manage their lifecycles. Docker Compose manages the lifecycle of multiple containers at the same time, handles all runtime settings for us (environment variables, port maps, volumes, etc), and can be started, stopped and inspected with simple shell commands. Now, if we look back at our wishlist, we meet all of the criteria.
 
 ## YAML (YAML Ain't Markup Language)
 
-What does Docker compose actually look like? The configuration is written in a language called YAML. This is great for a lot of reasons: YAML is a simple and human-readable config language, it is standard across many infrastructure tools, and it has types which will prevent us from making some major mistakes. There are a few different types available in YAML:
+What does Docker compose actually look like? The configuration is written in a language called YAML. This is great for a lot of reasons: YAML is a simple and human-readable config language, it is standard across many infrastructure tools like Kubernetes and Continuous Integration, and it has types which will prevent us from making some major mistakes. The grammar of YAML is made up of these base types:
 
 - Scalar
   - String
@@ -61,22 +57,22 @@ What does Docker compose actually look like? The configuration is written in a l
 - Dictionary 
 - List
 
-While there are only a few types, by composing these data types we can be quite expressive.
+The top-level structure is always a dictionary, a list of key/value pairs. If you're familiar with JSON, then this should seem familiar. While there are only a few types, by composing these data types we can be quite expressive.
 
 ### Scalars
 
 #### Strings
 
-For strings we don't need quotes, however it is generally considered best practice to quote your strings. If you include numbers in your strings and don't quote them, the compiler interprets it as a number. Moral of the story: quote your strings in YAML.
-```
+For strings we don't need quotes, however it is generally considered best practice to quote your strings. If you include numbers in your strings and don't quote them, the compiler interprets it as a number, so it's always safer to add quotes.
+```yaml
 armaan: "Tobaccowalla"
 peyton: Walters
 ```
 
 #### Multi-line Strings 
 
-There are two operators, `|` (pronounced pipe) and `>` (pronounced chomp). The pipe preserves newlines in the YAML, whereas the chomp puts everything on the same line.
-```
+There are two operators, `|` (pronounced pipe) and `>` (pronounced chomp). The pipe preserves newlines and whitespace in the YAML, whereas the chomp puts everything on the same line.
+```yaml
 campbell: |
   This is Campbell's first sentence.
   This second sentence is on a new line.
@@ -89,15 +85,15 @@ davis: >
 #### Numbers
 
 Fairly straightforward, no quotes and you get a number.
-```
+```yaml
 armaan: 21
-campbell: 20
+campbell: 20.5
 ```
 
 #### Booleans
 
 YAML let's you get away with a lot for boolean values. You should always use `true` or `false`. However, YAML does accept `False` and `NO` but this can make your config confusing and hard to read. Also, these are subject to change in the future so using anything other than `true` or `false` is not particularly maintainable.
-```
+```yaml
 this_is_true: true
 this_is_false: false
 do_not_do_this: False
@@ -107,7 +103,7 @@ nor_this: NO
 ### Lists
 
 We can create a list with newlines and hyphens (you don't have to indent but we prefer if you do), or by comma separating the values within brackets as in `list2`. We recommend that you install a editor extension (something like [this](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)) that helps format your YAML as you write it.
-```
+```yaml
 instructors:
   - armaan
   - peyton
@@ -123,7 +119,7 @@ list2: ["this", "is", "an", "alternative"]
 ### Dictionaries
 
 Use two spaces in the indent and YAML will associate the values as a dictionary.
-```
+```yaml
 # 2 spaces per indent or bust
 staff_ages:
   instructors:
@@ -133,8 +129,8 @@ staff_ages:
     davis: 22
     campbell: 20
 ```
-The example above has a small problem. What is the value that we are associating with the names? We see that Peyton is 21 and Davis is 22, but what does that mean? Are they 21 and 22 feet tall? The example below shows how we can use lists of dictionaries to remove that ambiguity:
-```
+The example above has a readability problem. What is the value that we are associating with the names? We see that Peyton is 21 and Davis is 22, but what does that mean? Are they 21 and 22 feet tall? The example below shows how we can use lists of dictionaries to remove that ambiguity:
+```yaml
 staff:
   instructors:
     - name: armaan
@@ -148,47 +144,42 @@ staff:
       age: 20
 ```
 
-## YAML Link
+## YAML Lint
 
-Checkout [http://www.yamllint.com/](http://www.yamllint.com/) to double check your YAML, it will help remove ambiguity from the config. We automatically run this in the autograder so definitely put your Docker compose YAML in here before you submit!
+Check out [yamllint.com/](http://www.yamllint.com/) to double check your YAML, it will help remove ambiguity from the config. We automatically run this in the autograder so definitely put your Docker compose YAML in here before you submit!
 
-## What Are We Missing?
+## Docker-Compose to Production?
 
-So far, with all of these Docker tools (Docker images, Docker containers, DDocker runtime, Docker compose, and Docker Hub) we have all of the following:
+So far, with all of these Docker tools (Docker images, Docker containers, Docker runtime, Docker compose, and Docker Hub) we can build and distribute images, and coordinate multiple containers together. If we're designing a production system that we want to serve actual web traffic, is this enough? Are we missing anything? The answer is yes! Here are four main pillars that are not handled at all by docker-compose: 
 
-- Image building
-- image distribution
-- Running multiple containers together
-
-If we're designing a production system that we want to serve actual web traffic, is this enough? Are we missing anything?
-
-- Testing: How can we ensure that our code is actually working putting it into production?
-- Observability: How can we monitor all of our containers and their health? Are we notified if something fails? Are we getting more traffic than we can handle?
-- Scalability: We can duplicate Docker containers, but still we are limited by the hardware capacity of the single machine that is running Docker. Also, we cannot scale automatically based on the amount of traffic we are receiving.
-- High Availability: If a machine fails, will I still be able to serve traffic?
+- High Availability: If a node fails, will I still be able to serve traffic?
+- Horizontal Scalability: We can duplicate Docker containers, but still we are limited by the hardware capacity of the single node that is running Docker. Also, we cannot scale automatically based on the amount of traffic we are receiving.
+  - Vertical scalability is when we duplicate a service many times on the same machine, Docker compose allows us to do this by duplicating containers. Horizontal scalability is when we duplicate our service many times across different machines. We want horizontal scalability so that we are not limited by the hardware of a single machine. Horizontal scalability also affords us availability, if only one of the many machines running our code fails, we can still serve traffic from the other machines.
 - Networking: Docker compose allows us to network between containers on a single machine, but we cannot communicate across multiple machines. If we want scalability and availability, we're going to need to communicate between multiple machines.
+- Observability: How can we monitor all of our containers and their health? Are we notified if something fails? Are we getting more traffic than we can handle?
 
-Note that all of these metrics exist on a spectrum. We can have super high availability, but it might make networking or observability more difficult. There are going to be tradeoffs and it won't always be the case that one technology is the solution to every existing use case.
+Note that all of these pillars come with tradeoffs. We can have super high availability, but it might make networking or observability more difficult. There are going to be tradeoffs and it won't always be the case that one technology is the solution to every existing use case.
 
-### Vertical Scalability vs. Horizontal Scalability
-
-Let's quickly differentiate between vertical scaling and horizontal scalability. Vertical scalability is when we duplicate a service many times on the same machine, Docker compose allows us to do this by duplicating containers. Horizontal scalability is when we duplicate our service many times across different machines. We want horizontal scalability so that we are not limited by the hardware of a single machine. Horizontal scalability also affords us availability, if only one of the many machines running our code fails, we can still serve traffic from the other machines.
+### What even is a "production system?"
+All four of these pillars mentioned above are extremely important for a company at the scale of Facebook, where tens of millions of people are using the product every second of every day. Smaller companies might have different requirements: high availability or observability might not be as much of an issue when operating only in one datacenter. There are certainly many companies which run Docker Compose in production. Whether that's a "best practice" or not is up to interpretation. A good takeaway from this class is that there's no silver bullet for every problem and every possible scale. Docker Compose won't always be the right choise, but clustering systems might not be the right tradeoff either for a given problem.
 
 ## Production System Wishlist
 
-Are there those specific features we would want out of a production system?
+Now that we've looked at the hard technical requirements, let's look at the features we'd like to see.
 
 ### Declarative
 
-What does it mean to be declarative? We want to be able to tell our system our desired state or end goal, and then have the system automatically get to that state (this is called automatic reconciliation between desired state and actual state). We want this because it abstracts a lot of the complexity away from us. We don't always care how the system gets to the desired state, we just need it to be able to get to the desired state, the process of getting there is confusing and not something we need to worry about.
+> "I want 10 instances of my webserver at the domain example.cis188.com"
+
+Rather than have to micro-manage the state of our cluster at all times, we want a declarative system that will automatically reconcile the current state of our system with our desired state. This abstracts a lot of the complexity away from us. We don't always care how the system gets to the desired state, we just need it to be able to get there.
 
 We also get error recovery for free out of a declarative system. If some error occurs that deviates us from our desired state, we don't have to troubleshoot the issue. Instead, the system automatically knows that it needs to bring us back to the desired state.
 
-Declarative tools are something that we will see in common among many infrastructure tools.
+Declarative tools like [terraform](https://www.terraform.io) extend beyond deployment into other parts of infrastructure.
 
 ### API-Driven
 
-All interactions with the system should be done through an API interface. We should never have to SSH into a server and manually make changes. This way, everything on the cluster can be easily described as API objects and interacted with through the API. This also makes permissions describable using API-style: principal-verb-resource style. This is where we can setup our permissions as "Principal `x` can perform verb `y` on resource `z`".
+All interactions with the system should be done through an API interface. We should never have to SSH into a server and manually make changes. This way, everything on the cluster can be easily described as API objects and interacted with through the API. This allows us to work with our cluster resources through a REST API similarly to how an application would allow clients to work with database rows. This also makes permissions describable using API-style: principal-verb-resource style. This is where we can setup our permissions as "Principal `x` can perform verb `y` on resource `z`".
 
 What's wrong with shell scripts? Why is an API better? Because APIs are language agonistic, we can automate the API in a number of different languages with little overhead. This is good for a system that we want to widely applicable.
 
@@ -202,6 +193,6 @@ It is a myth that open source is a security vulnerability because adversaries ca
 
 We want a large, welcoming community. The more user and contributors, the stronger the codebase becomes. Having users that are excited about the product and working to improve it will send the project on a positive trajectory.
 
-## Kubernetes
+## Kubernetes!
 
 The system that we're talking about is Kubernetes. It fulfils all of the requirements we've listed above and we'll go into more depth next week.
