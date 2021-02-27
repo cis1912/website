@@ -37,7 +37,7 @@ Labels are a way to do quick lookups on resources in Kubernetes. Think of them a
 
 ## Services
 
-Each pod has its own IP address, but actually directing requests to the correct pod can be difficult when we have many pods. When a deployment has many replicas, the application would have to decide which replica to send a request to. This is where services come into play. Services are associated with their own IP address, when this IP address is hit by a request, the main node uses the cluster metadata to route you to the correct pod. The services are linked to pods by label, so any pod with a specific label will be considered part of the associated service.
+Each pod has its own IP address, but actually directing requests to the correct pod can be difficult when we have many pods. When a deployment has many replicas, the application would have to find out the IP of every replica and then decide which replica to send a request to. Services come into play by making the discovery of application locations within the cluster much easier. Services are associated with their own IP address, when this IP address is hit by a request, the main node uses the cluster metadata to route you to the correct pod. The services are linked to pods by label, so any pod with a specific label will be considered part of the associated service.
 
 ![Service Visualization](/img/lec04/service_vis.png)
 
@@ -146,7 +146,7 @@ $ kubectl get pods
 NAME                    READY   STATUS             RESTARTS   AGE
 node-57649f9655-cd8sw   0/1     ImagePullBackOff   0          86s
 ```
-So, our pod has encountered an error. The status is `ImagePullBackOff` which tells us that Kubernetes is likely having trouble finding the `node-demo:v1` Docker image that we've instructed it to use when building the pods for the deployment (for additional information, we also could have tried `kubectl describe pods node-57649f9655-cd8sw`). The issue here is that our Docker image exists on our laptop, but within the Kind cluster. We can move a Docker image from our local machine into Kind:
+So, our pod has encountered an error. The status is `ImagePullBackOff` which tells us that Kubernetes is likely having trouble finding the `node-demo:v1` Docker image that we've instructed it to use when building the pods for the deployment (for additional information, we also could have tried `kubectl describe pods node-57649f9655-cd8sw`). The issue here is that our Docker image exists on our laptop, but not yet within the Kind cluster. We can move a Docker image from our local machine into Kind:
 ```
 # Move the node-app:v1 Docker image into the kube-demo cluster
 kind load docker-image --name kube-demo node-app:v1
