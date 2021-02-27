@@ -170,3 +170,7 @@ Hello World: 6bd2bde0-b566-45e8-a3df-17b4f8581d6c%
 This is great! Our Node app is now running inside of the local Kubernetes cluster and we are able to interact with it.
 
 Finally, a shout out to the [VSCode Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) which provides useful tooltips and error checking when you are writing YAML for Kubernetes.
+
+### Image tags in Kubernetes manifests
+
+Kubernetes's declarative API will only apply updates to resources in the cluster when the resource manifest YAML changes. This is generally a good property to have, since like we've mentioned previously, [idempotence](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning) is an important property in APIs since it lets us retry operations without worrying about unintended duplication. However, this means that if we've rebuilt our Docker image with changes and pushed the new image to the cluster's registry, there's no easy way to signal to Kubernetes that this image is different without changing its tag, both in the registry and in the YAML manifest. Once the new YAML is applied to the cluster, Kubernetes will notice that the tag has changed and pull in the new image.
