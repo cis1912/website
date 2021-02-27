@@ -1,5 +1,5 @@
 ---
-title: "Reproducibility: docker-compose"
+title: "Reproducibility: Docker Compose"
 date: 2021-02-15
 publishDate: 2020-12-01
 assignments: []
@@ -38,7 +38,7 @@ So, if we're unhappy with the Docker CLI as our interface for running containers
 - Reproducible (should be easy to share)
 - Easy to understand what's going on (human readable)
 - Confidence in making changes to config
-- Resource lifecycle management (we can set parameters that manage our containers)
+- Resource lifecycle management (spinning up, tearing down and cleaning up containers)
 
 If we look at the example from the previous section, we can see that apart from resource lifecycle management, we have nothing else from our wishlist.
 
@@ -48,7 +48,7 @@ The improvement here is Docker Compose. This is a tool that allows us to "compos
 
 ## YAML (YAML Ain't Markup Language)
 
-What does Docker compose actually look like? The configuration is written in a language called YAML. This is great for a lot of reasons: YAML is a simple and human-readable config language, it is standard across many infrastructure tools like Kubernetes and Continuous Integration, and it has types which will prevent us from making some major mistakes. The grammar of YAML is made up of these base types:
+What does Docker Compose actually look like? The configuration is written in a language called YAML. This is great for a lot of reasons: YAML is a simple and human-readable config language, it is standard across many infrastructure tools like Kubernetes and Continuous Integration, and it has types which will prevent us from making some major mistakes. The grammar of YAML is made up of these base types:
 
 - Scalar
   - String
@@ -57,7 +57,7 @@ What does Docker compose actually look like? The configuration is written in a l
 - Dictionary 
 - List
 
-The top-level structure is always a dictionary, a list of key/value pairs. If you're familiar with JSON, then this should seem familiar. While there are only a few types, by composing these data types we can be quite expressive.
+The top-level structure in configuration files is normally a dictionary, a list of key/value pairs. If you're familiar with JSON, then this should seem familiar. While there are only a few types, by composing these data types we can be quite expressive.
 
 ### Scalars
 
@@ -71,7 +71,7 @@ peyton: Walters
 
 #### Multi-line Strings 
 
-There are two operators, `|` (pronounced pipe) and `>` (pronounced chomp). The pipe preserves newlines and whitespace in the YAML, whereas the chomp puts everything on the same line.
+There are two operators, `|` (pronounced pipe) and `>` (pronounced fold). The pipe preserves newlines and whitespace in the YAML, whereas the fold operator folds all newlines, tabs and other whitespace into a single space, putting everything on the same line. You can check out [this page](https://yaml-multiline.info) for more information on the nuances of multiline strings in YAML.
 ```yaml
 campbell: |
   This is Campbell's first sentence.
@@ -148,20 +148,17 @@ staff:
 
 Check out [yamllint.com/](http://www.yamllint.com/) to double check your YAML, it will help remove ambiguity from the config. We automatically run this in the autograder so definitely put your Docker compose YAML in here before you submit!
 
-## Docker-Compose to Production?
+## Docker Compose to Production?
 
-So far, with all of these Docker tools (Docker images, Docker containers, Docker runtime, Docker compose, and Docker Hub) we can build and distribute images, and coordinate multiple containers together. If we're designing a production system that we want to serve actual web traffic, is this enough? Are we missing anything? The answer is yes! Here are four main pillars that are not handled at all by docker-compose: 
+So far, with all of these Docker tools (Docker images, Docker containers, Docker runtime, Docker compose, and Docker Hub) we can build and distribute images, and coordinate multiple containers together. If we're designing a production system that we want to serve actual web traffic, is this enough? Are we missing anything? The answer is yes! Here are four main pillars that are not handled at all by Docker Compose: 
 
-- High Availability: If a node fails, will I still be able to serve traffic?
-- Horizontal Scalability: We can duplicate Docker containers, but still we are limited by the hardware capacity of the single node that is running Docker. Also, we cannot scale automatically based on the amount of traffic we are receiving.
-  - Vertical scalability is when we duplicate a service many times on the same machine, Docker compose allows us to do this by duplicating containers. Horizontal scalability is when we duplicate our service many times across different machines. We want horizontal scalability so that we are not limited by the hardware of a single machine. Horizontal scalability also affords us availability, if only one of the many machines running our code fails, we can still serve traffic from the other machines.
+- High Availability: If a node fails, will we still be able to serve traffic?
+- Horizontal Scalability: There are two ways to scale a service. Vertical scalability is when we increase the resources of our production server to handle more traffic, generally by adding more RAM or upgrading to a faster processor. Horizontal scalability is when we increase our computational resources by having multiple machines run our server code and balance load between them. Docker Compose only lets us scale vertically, because it runs on a single host. We're therefore limited by the capacity of a single node running Docker Compose. While vertical scaling can get us far, there's an upper limit to the traffic that can be handled on a single machine. Running off of a single node is also a *single point of failure*. While horizontal scalability does not guarantee high availability, it is a prerequisite.
 - Networking: Docker compose allows us to network between containers on a single machine, but we cannot communicate across multiple machines. If we want scalability and availability, we're going to need to communicate between multiple machines.
 - Observability: How can we monitor all of our containers and their health? Are we notified if something fails? Are we getting more traffic than we can handle?
 
-Note that all of these pillars come with tradeoffs. We can have super high availability, but it might make networking or observability more difficult. There are going to be tradeoffs and it won't always be the case that one technology is the solution to every existing use case.
-
 ### What even is a "production system?"
-All four of these pillars mentioned above are extremely important for a company at the scale of Facebook, where tens of millions of people are using the product every second of every day. Smaller companies might have different requirements: high availability or observability might not be as much of an issue when operating only in one datacenter. There are certainly many companies which run Docker Compose in production. Whether that's a "best practice" or not is up to interpretation. A good takeaway from this class is that there's no silver bullet for every problem and every possible scale. Docker Compose won't always be the right choise, but clustering systems might not be the right tradeoff either for a given problem.
+All four of these pillars mentioned above are extremely important for a company at the scale of Facebook, where tens of millions of people are using the product every second of every day. Smaller companies might have different requirements: high availability or observability might not be as much of an issue when operating only in one datacenter. There are certainly many companies which run Docker Compose in production. Whether that's a "best practice" or not is up to interpretation. A good takeaway from this class is that there's no silver bullet for every problem and every possible scale. There's always a cost/benefit tradeoff between a given feature and the operational complexity that comes with it. Docker Compose won't always be the right choice, but clustering systems might not be the right tradeoff either for a given problem.
 
 ## Production System Wishlist
 
