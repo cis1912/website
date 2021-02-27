@@ -45,13 +45,15 @@ Each pod has its own IP address, but actually directing requests to the correct 
 
 The old model of deployment and operations was there would be infrastructure engineers who learned the specifics of any given server. They managed the server and tweaked the server to their uses: in this sense the server is a pet. The new model we propose is one where servers are all standardized and indistinct: they are cattle. From changing our perspective this way we gain a lot. Pods and nodes are reproducible and homogenized, so if one goes down we can easily replace it with one that has the same configuration.
 
+Our goal in this class is to think of our infrastructure as reproducible and scalable. If we do that, we can't have pet servers, since pets require individual attention.
+
 ## Infrastructure as Code
 
-Instead of having commands that we run as we do a deployment, we instead want code that clearly specifies how we setup our infrastructure. The basic idea is that we want to move all of our manual configuration into a serialized configuration file. If we are writing our infrastructure as code, then we can put it in a Git repository and use version control to manage changes. Moreover, we could automate our deployment process so that tools run with the infrastructure when we push commits to our repository.
+Instead of having commands that we run interactively as we do a deployment, we instead want code that clearly specifies how we setup our infrastructure. The basic idea is that we want to move all of our manual configuration into serialized configuration files. If we are writing our infrastructure as code, then we can put it in a Git repository and use version control to manage changes. Moreover, we could automate our deployment process so that tools run with the infrastructure when we push commits to our repository.
 
-This is a key idea in DevOps: we want to take these newer practices of development and apply them to operations to make everything cleaner, human-readable, and reproducible.
+This is a key idea in DevOps: we want to take these development practices, like version control and continuous integration, and apply them to operations and infrastructure problems to make everything cleaner, human-readable, and reproducible.
 
-## Demo
+# Demo
 
 We want to deploy the Node app we've been using in previous demos to a local Kubernetes cluster. First, let's build the Docker container for our app. Within the website repository (see [lecture 2](./lec02/) if you have not cloned the repository yet) we navigate to the Kubernetes demo and build:
 ```
