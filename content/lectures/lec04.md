@@ -3,11 +3,11 @@ title: "Kubernetes fundamentals"
 date: 2021-02-22
 publishDate: 2020-12-01
 assignments: ["hw1"]
-slides: ""
+slides: "https://docs.google.com/presentation/d/13aSi2UkmZRwmBj1ENizwTa_E_FK0qdIIQoONfF1nDjA/edit"
 draft: false
 ---
 
-# Lecture Three: Kubernetes
+# Lecture Four: Kubernetes
 
 ## What is Kubernetes?
 
@@ -37,7 +37,7 @@ Labels are a way to do quick lookups on resources in Kubernetes. Think of them a
 
 ## Services
 
-Each pod has its own IP address, but actually directing requests to the correct pod can be difficult when we have many pods. When a deployment has many replicas, the application would have to find out the IP of every replica and then decide which replica to send a request to. Services come into play by making the discovery of application locations within the cluster much easier. Services are associated with their own IP address **and** hostname, and when this IP address is hit by a request, the main node uses the cluster metadata to route you to the correct pod. The services are linked to pods by label, so any pod with a specific label will be considered part of the associated service.
+Each pod has its own IP address, but actually directing requests to the correct pod can be difficult when we have many pods. When a deployment has many replicas, the application would have to find out the IP of every replica and then decide which replica to send a request to. Services come into play by making the discovery of application locations within the cluster much easier. Services are associated with their own IP address **and** hostname, and when this IP address or hostname is hit by a request, the request will be forwarded to a randomly-selected pod in the service. The services are linked to pods by label, so any pod with a specific label will be considered part of the associated service.
 
 ![Service Visualization](/img/lec04/service_vis.png)
 
