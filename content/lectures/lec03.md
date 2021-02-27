@@ -44,7 +44,7 @@ If we look at the example from the previous section, we can see that apart from 
 
 ## Docker Compose
 
-The improvement here is Docker Compose. This is a tool that allows us to "compose" multiple Docker containers together, and manage their lifecycles. Docker Compose manages the lifecycle of multiple containers at the same time, handles all runtime settings for us (environment variables, port maps, volumes, etc), and can be started, stopped and inspected with simple shell commands. Now, if we look back at our wishlist, we meet all of the criteria.
+The improvement here is Docker Compose. This is a tool that allows us to "compose" multiple Docker containers together. Docker Compose manages the lifecycle of multiple containers at the same time, handles all runtime settings for us (environment variables, port maps, volumes, etc), and can be started, stopped and inspected with simple shell commands. Now, if we look back at our wishlist, we meet all of the criteria.
 
 ## YAML (YAML Ain't Markup Language)
 
