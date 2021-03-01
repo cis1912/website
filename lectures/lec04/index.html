@@ -20,36 +20,36 @@ NAME                      STATUS   ROLES                  AGE     VERSION
 kube-demo-control-plane   Ready    control-plane,master   2m26s   v1.20.2
 </code></pre><p>This shows us the nodes that are running on our cluster. This demonstrates the <code>verb-kind-selector</code> structure of the API that we have mentioned before. In this scenario our verb is <code>get</code> and our kind is <code>nodes</code>. We are selecting for all of the nodes, but an example of the selector would be if we ran <code>kubectl get nodes kube-demo-control-plane</code>, we are specifically getting the <code>kube-demo-control-plane</code> node that we saw listed above. If we run <code>kubectl --help</code> we can see all of the different verbs that kubectl provides us to interact with the cluster. If we wanted more detail about our nodes, we could say:</p><pre><code>$ kubectl describe nodes
 </code></pre><p>this gives us an enormous amount of information about all of our nodes. Additionally, if we specifically wanted the YAML that has configured a certain pod, we can run:</p><pre><code>$ kubectl get nodes kube-demo-control-plane -oyaml
-</code></pre><p>and we see the manifest with which the pod was created.</p><p>As a sidenote, you might see when reading docs or on discussion forms people using <code>k get nodes</code> instead of <code>kubectl get nodes</code> or something along these lines. It is a common practice to alias kubectl to <code>k</code> on the command line. If you want to do this you can type the command <code>alias k=kubectl</code> in your terminal. However, this will only last for the given terminal session (if you close the window or try on other windows, the alias will not work). If you want this alias to be available all of the time, you can add the line <code>alias k=kubectl</code> to <code>~/.bashrc</code>, the list of &ldquo;run commands&rdquo; located in your home directory that are run every time you start a new bash shell.</p><p>Now that we have build our Docker image and started our Kubernetes cluster, we want to run the image on the cluster. To do this, we need a Kubernetes manifest, this is what we have in <code>/k8s/node.yaml</code>:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>---
-<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>node-deployment</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>3</span>
-  <span style=color:#f92672>selector</span>:
-    <span style=color:#f92672>matchLabels</span>:
-      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>node-web</span>
-  <span style=color:#f92672>template</span>:
-    <span style=color:#f92672>metadata</span>:
-      <span style=color:#f92672>labels</span>:
-        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>node-web</span>
-    <span style=color:#f92672>spec</span>:
-      <span style=color:#f92672>containers</span>:
-        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>node</span>
-          <span style=color:#f92672>image</span>: <span style=color:#ae81ff>node-app:v1</span>
-          <span style=color:#f92672>ports</span>:
-            - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>8080</span>
----
-<span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
-<span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
-<span style=color:#f92672>metadata</span>:
-  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>node-service</span>
-<span style=color:#f92672>spec</span>:
-  <span style=color:#f92672>selector</span>:
-    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>node-web</span>
-  <span style=color:#f92672>ports</span>:
-    - <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8080</span>
+</code></pre><p>and we see the manifest with which the pod was created.</p><p>As a sidenote, you might see when reading docs or on discussion forms people using <code>k get nodes</code> instead of <code>kubectl get nodes</code> or something along these lines. It is a common practice to alias kubectl to <code>k</code> on the command line. If you want to do this you can type the command <code>alias k=kubectl</code> in your terminal. However, this will only last for the given terminal session (if you close the window or try on other windows, the alias will not work). If you want this alias to be available all of the time, you can add the line <code>alias k=kubectl</code> to <code>~/.bashrc</code>, the list of &ldquo;run commands&rdquo; located in your home directory that are run every time you start a new bash shell.</p><p>Now that we have build our Docker image and started our Kubernetes cluster, we want to run the image on the cluster. To do this, we need a Kubernetes manifest, this is what we have in <code>/k8s/node.yaml</code>:</p><div class=highlight><pre style=color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#111>---</span>
+<span style=color:#f92672>apiVersion</span><span style=color:#111>:</span> <span style=color:#ae81ff>apps/v1</span>
+<span style=color:#f92672>kind</span><span style=color:#111>:</span> <span style=color:#ae81ff>Deployment</span>
+<span style=color:#f92672>metadata</span><span style=color:#111>:</span>
+  <span style=color:#f92672>name</span><span style=color:#111>:</span> <span style=color:#ae81ff>node-deployment</span>
+<span style=color:#f92672>spec</span><span style=color:#111>:</span>
+  <span style=color:#f92672>replicas</span><span style=color:#111>:</span> <span style=color:#ae81ff>3</span>
+  <span style=color:#f92672>selector</span><span style=color:#111>:</span>
+    <span style=color:#f92672>matchLabels</span><span style=color:#111>:</span>
+      <span style=color:#f92672>app</span><span style=color:#111>:</span> <span style=color:#ae81ff>node-web</span>
+  <span style=color:#f92672>template</span><span style=color:#111>:</span>
+    <span style=color:#f92672>metadata</span><span style=color:#111>:</span>
+      <span style=color:#f92672>labels</span><span style=color:#111>:</span>
+        <span style=color:#f92672>app</span><span style=color:#111>:</span> <span style=color:#ae81ff>node-web</span>
+    <span style=color:#f92672>spec</span><span style=color:#111>:</span>
+      <span style=color:#f92672>containers</span><span style=color:#111>:</span>
+        - <span style=color:#f92672>name</span><span style=color:#111>:</span> <span style=color:#ae81ff>node</span>
+          <span style=color:#f92672>image</span><span style=color:#111>:</span> <span style=color:#ae81ff>node-app:v1</span>
+          <span style=color:#f92672>ports</span><span style=color:#111>:</span>
+            - <span style=color:#f92672>containerPort</span><span style=color:#111>:</span> <span style=color:#ae81ff>8080</span>
+<span style=color:#111>---</span>
+<span style=color:#f92672>apiVersion</span><span style=color:#111>:</span> <span style=color:#ae81ff>v1</span>
+<span style=color:#f92672>kind</span><span style=color:#111>:</span> <span style=color:#ae81ff>Service</span>
+<span style=color:#f92672>metadata</span><span style=color:#111>:</span>
+  <span style=color:#f92672>name</span><span style=color:#111>:</span> <span style=color:#ae81ff>node-service</span>
+<span style=color:#f92672>spec</span><span style=color:#111>:</span>
+  <span style=color:#f92672>selector</span><span style=color:#111>:</span>
+    <span style=color:#f92672>app</span><span style=color:#111>:</span> <span style=color:#ae81ff>node-web</span>
+  <span style=color:#f92672>ports</span><span style=color:#111>:</span>
+    - <span style=color:#f92672>port</span><span style=color:#111>:</span> <span style=color:#ae81ff>8080</span>
 </code></pre></div><p>A few notes, when we write these <code>---</code> in YAML, that means we are separating the two objects so that they should be treated completely independently (one is a deployment, the other is a service).</p><p>Starting with the service, we set the <code>apiVersion: v1</code> to tell Kubernetes that we are using version <code>v1</code> of the Kubernetes API to create this object (other objects will use other versions, don&rsquo;t worry about this too much it just has to do with how Kubernetes releases objects to their API). In the metadata we give the service a name <code>node-service</code>. The most important part here is <code>spec</code> where we define which <code>selector</code> to be <code>app: node-web</code>. This will look through our pods and find all pods which have key <code>app</code> set to <code>node-web</code> and include these as part of our service. We also add <code>ports</code> and <code>port: 8080</code> which exposes port <code>8080</code> on the service.</p><p>Next, we have the deployment. Jumping right to <code>spec</code> we see that we set <code>replicas: 1</code>, so we will only create a single instance of this pod. We add a <code>selector</code> which matches the label <code>app</code> to <code>node-web</code>, so our service will include all pods which map <code>app</code> to <code>node-web</code> similar to our service. Next, we define our <code>template</code> for pods being spawned by the deployment. The pods will have <code>metadata</code> which has the label <code>app: node-web</code>. This is good because it ensures that our nodes will all have the correct label so that they are matched with our deployment and our service. We also define the pod template&rsquo;s <code>spec</code> to have a list of <code>containers</code> which includes a container that has <code>name: node</code> and <code>image: node-demo:v1</code> (this is the name that we gave to our container when we built at the beginning of the demo). Lastly, we want to expose a port on the container, we do this by adding <code>ports</code> and the mapping <code>containerPort: 8080</code> to our container. Note that both our service and our container need to expose <code>8080</code>, if one of them does but the other does not, the request won&rsquo;t be able to make it all the way from the service to the container.</p><p>Finally, we can create the objects specified in our manifest by running:</p><pre><code>$ kubectl apply -f k8s/
 deployment.apps/node created
 service/node created
