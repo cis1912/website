@@ -22,7 +22,7 @@ metadata:
   name: cphalen
 ```
 
-Two namespaces are available by default in a cluster: `default` for your own resources and `kube-system`, for resources the cluster needs to run itself. You can get resources belonging to a certain cluster with by adding `-n kube-system` to a `kubectl get` command.
+Two namespaces are available by default in a cluster: `default` for your own resources and `kube-system`, for resources the cluster needs to run itself. You can get resources belonging to a certain namespace with by adding `-n <namespace>` to a `kubectl get` command.
 
 ## Secret
 
@@ -114,11 +114,11 @@ spec:
 
 ```
 
-Why do we have to nest four or five YAML objects with `template` and `spec` just to run a job on a schedule? The answer comes down to modularity and the construction of the API. A CronJob is just a Job with a schedule, and a Job is in turn just a Pod that runs to completion. You can think of it as a very rough form of inheritance in Java. Kubernetes takes advantage of this conceptual hierarchy, and embeds references to API objects within API objects. In a quite literal sense, a CronJob has a Job, which in turn has a Pod. While this modularity results in more complex YAML, it makes it much easier for us to reason about resources which are simply compositions of other resources.
+Why do we have to nest four or five YAML objects with `template` and `spec` just to run a job on a schedule? The answer comes down to modularity and the construction of the API. A CronJob is just a Job with a schedule, and a Job is in turn just a Pod that runs to completion. Kubernetes takes advantage of this conceptual hierarchy, and embeds references to API objects within API objects. In a quite literal sense, a CronJob has a Job, which in turn has a Pod. While this modularity results in more complex YAML, it makes it much easier for us to reason about resources which are simply compositions of other resources.
 
 ## Volumes
 
-[Volumes](https://kubernetes.io/docs/concepts/storage/volumes/) are a way to reference some kind of non-ephemeral, persistent storage from within the cluster. They're used to provide filesystem-based persistence across application restarts or node reschedules. There are [PersistentVolumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) (PV) which is a physical representation of a disk in the API. Then we have PersistentVolumeClaims (PVCs) which is a request for access to a PersistentVolume. Then we can bind PVCs to PVs.
+[Volumes](https://kubernetes.io/docs/concepts/storage/volumes/) are a way to reference some kind of non-ephemeral, persistent storage from within the cluster. They're used to provide filesystem-based persistence across application restarts or (in some cases) node reschedules. There are [PersistentVolumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) (PV) which is a physical representation of a disk in the API. Then we have PersistentVolumeClaims (PVCs) which is a request for access to a PersistentVolume. Then we can bind PVCs to PVs.
 
 A PV is really a representation of the physical block where storage exists, and the PVC is a request to access that storage. This feels a little over-engineered, but it is actually really helpful when using cloud services like AWS where volumes are allocated independently of the machine running the containers.
 
@@ -143,9 +143,26 @@ A [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonse
 
 ## Annotations
 
-[Annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) aren't resources on their own, but a type of resource metadata used to store auxillary key/value information about a resource. Annotations aren't used by Kubernetes itself, but other software in and around your cluster might use the extra metadata to determine its own behavior. 
+[Annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) aren't resources on their own, but a type of resource metadata used to store auxillary key/value information about a resource. Unlike labels, resources can't be queried by annotations. Annotations aren't generally used by Kubernetes itself, but other software in and around your cluster might use the extra metadata to determine its own behavior. 
 
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: annotations-demo
+  annotations: # can be any key/value combination
+    imageregistry: "https://hub.docker.com/"
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+```
+
+<!--
 ## Kubernetes as an Abstraction
 
 (@peyton or @armaan can you rewrite this paragraph? not sure i'm gonna phrase it better than y'all)
 Sometimes instead of thinking about Kubernetes as a container orchestration tool, it can be better to think about it as an abstraction that allows us to reason about infrastructure. Kubernetes is the most popular container orchestration tool not because it is the best at orchestrating containers, but because the abstractions are simple and elegant.
+-->
