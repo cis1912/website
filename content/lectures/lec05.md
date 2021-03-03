@@ -143,7 +143,7 @@ A [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonse
 
 ## Annotations
 
-[Annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) aren't resources on their own, but a type of resource metadata used to store auxillary key/value information about a resource. Unlike labels, resources can't be queried by annotations. Annotations aren't generally used by Kubernetes itself, but other software in and around your cluster might use the extra metadata to determine its own behavior. 
+[Annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) aren't resources on their own, but a type of resource metadata used to store auxillary key/value information about a resource. Unlike labels, resources can't be queried by annotations. Annotations aren't generally used by Kubernetes by default, but other software in and around your cluster might use the extra metadata to determine its own behavior. 
 
 ```yaml
 apiVersion: v1
