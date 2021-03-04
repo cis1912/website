@@ -131,7 +131,7 @@ This is one of the key components of Kubernetes that lets us treat our serves as
 - Games: Minecraft
 - Search: AWS Elasticsearch
 
-![StatefulSet Diagram][/img/lec05/statefulset.png]
+![StatefulSet Diagram](/img/lec05/statefulset.png)
 
 Note that each StatefulSet has its own PersistentVolume, and so writes to PersistentVolume 0 from Pod 0 in the diagram will not be readable from either Pod 1 or Pod 2. The application itself will need to coordinate the state of the PersistentVolumes using some kind of replication strategy.
 
@@ -139,7 +139,7 @@ Note that each StatefulSet has its own PersistentVolume, and so writes to Persis
 
 A [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) is a deployment which has one pod running on each node in the cluster. These are used to provide node-wide services like authentication gateways, ingress routers, and log collectors.
 
-![DaemonSet Diagram][/img/lec05/daemonset.png]
+![DaemonSet Diagram](/img/lec05/daemonset.png)
 
 ## Annotations
 
