@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Release.Name }}-echo-demo
+spec:
+  containers:
+    - name: hello
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      command:
+        - /bin/sh
+        - -c
+        - date; echo "{{ .Values.message }}"

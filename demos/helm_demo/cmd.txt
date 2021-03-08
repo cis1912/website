@@ -1,0 +1,9 @@
+$ kind create cluster --name demo
+
+kubectl get pod
+
+helm install --upgrade demo-release .
+
+kubectl logs demo-release-echo-demo
+
+## vary args, template out diff things
