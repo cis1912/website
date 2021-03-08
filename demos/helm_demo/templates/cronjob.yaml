@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: hello-world
+  name: hello-world-different
 spec:
   schedule: "*/1 * * * *"
   successfulJobsHistoryLimit: 3
