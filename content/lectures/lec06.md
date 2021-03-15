@@ -11,83 +11,100 @@ draft: false
 
 ## Traditional Infrastructure
 
-This is what you see in movies or television:
-- Numerous physical servers on racks in a data center
-- One application per machine
-- Lots of responsibilities (managing hardware, data center networking, etc.)
+Traditionally, from the beginning of the web in the 1990s up through 2009 or 2010, traditional server infrastructure was oriented around physical machines. There are three general steps in terms of complexity within this traditional structure: the "server under a desk", colocation centers, and datacenters.
 
-One big issue with this is that this setup is inefficient for small workloads. Say you want to have an application that serves a static website, the high-powered machine running this application will likely be under-utilized. This is bad for you as someone invested in the machine and the data center; you want to get as much return on the money your spending as possible so under-utilizing resources is no good.
+### "Server under the desk"
+
+The "server under a desk" is exactly what it sounds like. Developers can (and did) set up static IP addresses through their internet service providers (ISPs) and simply plug in a server, expose its HTTP ports to the internet, and serve traffic. This approach can work for small sites that don't see a lot of traffic, but along with performance bottlenecks on a single, small machine that we've addressed previously, there's also the question of reliability. Apartments and offices might not have power 24/7/365: fuses sometimes trip, and generators aren't particularly common. If you want to host your web services out of your home or office, then you're responsible for everything from service reliability down to electricity. Networking can also be an issue. Sharing an Ethernet connection with the rest of the office can come at the expense of reliability and speed.
+
+### Colocation Centers
+The next step up the complexity chart are colocation centers. In colocation centers, a developer or team of developers can rent whole servers within datacenters. The largest improvements over the "server under a desk" setup are that most of the basic needs of the server are taken care of by the colocation facility itself. Power, air conditioning, and networking are overseen by professionals that a development team would otherwise have to manage themselves. The prices for these additional services are included in the rental costs that are paid to the colocation center.
+
+### Datacenters
+
+When services reach a certain size, single servers within a colocation center aren't enough. Larger companies can spend hundreds of thousands and sometimes millions of dollars to build first-party datacenters to host their web services. When running a datacenter, companies have to hire specific staff to deal with networking, physical and cybersecurity, power management, and air conditioning, among other needs. It's a huge capital investment that generally requires outside capital, either from venture capitalists or through an IPO.
+
+A big drawback of traditional infrastructure is that teams and companies must move up the levels of complexity *before* their traffic demands it. It's important to always have excess capacity to be able to handle future growth. In the case of moving from an in-house server to a colocated server, that change might not be too onerous, but constructing a datacenter requires months of engineering and financial planning, only for there to be significant amounts of excess compute power sitting around once it's finished, waiting for demand and network traffic to increase. Clearly, there's a problem with the speed and agility that developers, who deal mostly with software, expect, and the realities of dealing with the operations of hardware in the physical world. The first step on the solution to this is virtualization.
 
 ## Virutalization
 
-To avoid this issue of small workloads, we can "chop up" these robust physical machines into multiple virtual machines which are allocated only the resources needed to support a specific application. This is wonderful for efficiency and portability, but we still have to worry about all of the other responsibilities that a data center entails.
+Virtualization allows us to provision servers that of any size to handle different workloads. Rather than live with under-utilization of a physical server, it can be split up into many VMs which are only allocated the resources that given applications need to run. Virtualization works pretty well at the datacenter level to help with under-utilization, but most moderately sized companies would still need to employ network engineers, HVAC technicians, electricians and security staff in order to run their datacenters. With virtualization, however, we're no longer limited to single-tennant datacenters or one-tennant-per-server-rack colocation centers. Customers can simply rent out as many virtual machines as they need to run their services, and leave all of the provisioning and hardware management to the datacenter providers. 
 
-## Cloud: VMs
+Startups no longer have to start with managing their own servers under the CTO's desk or in a dorm room closet. They can simply rent out a small VM from a datacenter to launch their product, without any knowledge of the underlying networking, or even what kind of server they're running their application on. This delegation of responsibility to datacenter providers is what has become known as cloud computing, and datacenter providers who rent VMs in this manner are known as cloud providers.
 
-If we're allocating VMs for our applications to run on, why do we need the data center at all? VMs are portable and reproducible so we could just as easily have someone else managing our VMs, right?
+## The Cloud and Virtual Machines
 
-In comes cloud providers. They manage the physical machines and provide and API through which users can access VMs. This is great for the users: there is no more physical server management! However, it does come with a cost because you are paying a cloud provider to manage your machines. There are certain companies that need in-house data centers for their applications (think finance companies trying to meet compliance standards). However, it turns out that managed cloud services are inexpensive enough that the ease of not having to manage in-house data centers is still attractive to a huge number of clients.
+Cloud providers build and manage datacenters with physical machines and provide an API through which users (in this case, other developers) can access Virtual Machines running inside those datacenters. Now, customers of the cloud don't have to manage their own physical servers, and can instead delegate that work to the cloud providers, for a cost. The Cloud has not fully taken over application hosting, however. Many companies have sunk millions of dollars into thier own datacenters over the past two decades, and certain industries, like banking and finance, require in-house datacenters for security and compliance reasons. But for the vast majority of use cases, it's now cheaper and easier, once you factor in labor costs, to rent VMs and compute resources from a cloud provider than it is to manage a physical machine directly.
 
-## Cloud: Managed Open Source Software (OSS)
+Once we've decided that we're going to use the cloud over managing our own machines, what kinds of services can the cloud provide for us? In addition to "bare" VMs, there's two general umbrella categories.
 
-Cloud providers will host OSS on their servers and allow users to rent out access to the specific software. This is great for developers because it reduces vendor lock-in, namely you can switch cloud providers relatively easily because the underlying OSS is identical. For example, migrating from Google Kubernetes Engine to Amazon Elastic Kubernetes Service is relatively straightforward.
+### Managed Open Source Software (OSS)
+
+The history of the Web is tied up in the history of Open Source Software (OSS), from webservers like Apache to databases like MySQL and Postgres, to newer projects like Kubernetes itself. In many instances, this software can be difficult to run and maintain due to its complexity, and requires a significant amount of domain knowledge to run effectively. Traditionally, System Administrators (Sysadmins) or Database Administrators (DBAs) would be employed by companies to manage these services. Along with the management of physical infrastructure, Cloud providers also will host OSS on their servers, abstracting away even the underlying VMs and providing application-level APIs. This is great for developers because it reduces vendor lock-in, namely you can switch cloud providers relatively easily because the underlying OSS is identical. For example, migrating from Google Kubernetes Engine to Amazon Elastic Kubernetes Service is relatively straightforward. Additionally, companies can get by with fewer sysadmins and DBAs, since the cloud providers are serving that role for organizations.
+
+
+#### Drawbacks of Managed OSS
+<!-- I kind of want to take out this section, not really relevant? Plus most OSS is managed by foundations, this really applies to like mongo/elastic/cockroach more than Apache, K8s, MariaDB, Postgres, etc. etc. -->
 
 However, this can sometimes be toxic for OSS creators because cloud providers can provide managed offerings of their service on a much larger scale at more competitive prices. This effectively takes all of the business away from all of the companies that actually developed the OSS, creating somewhat of an adversarial relationship between cloud providers and OSS creators.
 
 One such managed OSS is Kubernetes! AWS, GCP, Digital Ocean, and others all provide managed Kubernetes offerings so that we can use Kubernetes without having to actually spin up our own cluster on our own machines. As a sidenote, Kubernetes was originally developed by Google and then ownership was transferred to the [Cloud Native Computing Foundation (CNCF)](https://www.cncf.io/) which helps maintain Kubernetes. CNCF is not trying to turn a profit, so there is no conflict between CNCF and the cloud providers with a Kubernetes offering.
 
-## Cloud: Managed Proprietary
+### Managed Proprietary Software
 
-These are services that are specific to a certain cloud provider, one example is [AWS Lambda](https://aws.amazon.com/lambda/) which allows us to process ad hoc jobs on the AWS cloud. These services have best-in-class integration with other services on the same cloud, but they also come with the drawback of vendor lock-in. If we design our infrastructure around AWS Lambda, we cannot easily switch cloud providers because the code we've written is specific to AWS Lambda and the AWS environment (it can be ported to use another serverless offering, like [Google Cloud Functions](https://cloud.google.com/functions) but this takes time and resources).
+These are services that are specific to a certain cloud provider. A good example is [AWS Lambda](https://aws.amazon.com/lambda/), which is AWS's runtime for "serverless functions," basically ad-hoc jobs to run on the AWS cloud on some trigger events from other cloud services. Proprietary services have best-in-class integration with other services on the same cloud, but they also come with the drawback of vendor lock-in. If we design our infrastructure around AWS Lambda, we cannot easily switch cloud providers because the code we've written is specific to AWS Lambda and the AWS environment. The behavior of our Lambda services *can* be ported to another serverless offering, like [Google Cloud Functions](https://cloud.google.com/functions), but this would most likely be closer to a rewrite than a simple migration.
 
-Using different offerings from different cloud providers is called **multi-cloud** infrastructure. While this is achievable, it is generally best to avoid if possible because interfacing between the different cloud providers can be quite difficult and also incurs a lot of security vulnerabilities.
+How can we avoid lock-in? One of the best ways is to use the techniques we've been learning in this class so far: containerization and Kubernetes.
 
-## Exposing Services
+## Cloud Kubernetes
+While running Kubernetes locally and in the cloud both use the same API, there are some differences about what you need to do in order to effectively run Kubernetes in a cloud environment.
 
-How can we expose a service in our Kubernetes cluster to outside traffic? We generally have three options:
+### Exposing Services
 
-- `ClusterIp`: An IP address linked to a service which is only available from within the cluster or by forwarding a port using `kubectl`. This is great for debugging locally, but will not work in production as our users will not be using `kubectl` to forward a port on their machine to the cluster.
-- `NodePort`:  Opens a port on every node in the cluster and instructs the nodes to listen on that port. Then, whenever a node gets an incoming request on that port, it forwards that request to the service associated with the port.
-- `LoadBalancer`: This is a application that lives outside of Kubernetes. When you specify `LoadBalancer` service within your Kubernetes manifest, Kubernetes talks to your cloud provider and asks for a load balancer. The load balancer gets an IP and forwards data transmitted to that IP along to the node ports within your cluster. Additionally, we can configure the load balancer to load balance between the nodes in our cluster so that we can distribute the requests across the cluster.
+As we learned previously, Services are the resource we use for assigning IP addresses and hostnames to specific applications in our cluster. The default Service type, `CluseterIP`, can only make our application available from inside the cluster. Kubernetes actually has three kinds of Service:
 
-[IMAGES]
+- `ClusterIP`: An IP address linked to a service which is only available from within the cluster or by forwarding a port using `kubectl`. This is great for debugging locally, but will not work in production as our users will not be using `kubectl` to forward a port on their machine to the cluster.
+- `NodePort`:  Opens a port on every node in the cluster and instructs the nodes to listen on that port. Then, whenever a node gets an incoming request on that port, it forwards that request to the service associated with the port. If we have a NodePort with port `8080` attached to our Service, we could visit our application by going to the IP address of any node in the cluster and sending a request to port `8080`. Kubernetes will then handle routing the request to a proper pod.
+- `LoadBalancer`: A load balancer is an application that lives outside of Kubernetes. When you specify a Service of the `LoadBalancer` kind in Kubernetes, Kubernetes will reach out to your cloud provider and request a load balancer be provisioned. The load balancer gets an IP and forwards data transmitted to that IP along to one of your nodes within your cluster. Additionally, we can configure the load balancer to load balance between the nodes in our cluster so that we can distribute the requests across the cluster more evenly.
 
-## Ingress
+### The Ingress Resource
 
-Load balancers allow us to expose service on our cluster and expose it to the outside. However, we still need some additional steps to manage TLS, timeouts, authentication, etc. This is where an ingress becomes useful. An ingress will handle incoming traffic to your cluster and performs these additional steps on the request before passing them along to the services running on our cluster. Typically, the ingress will examine the `host` header in an HTTP request to route the request to the appropriate service. To specify these rules, we have to configure an ingress controller that defines these rules for how requests are forwarded to services within our cluster.
+[Ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) allow us to expose multiple services in our cluster through a single load balancer. They also manage TLS, request timeouts, authentication, and other networking responsibilities rather than having those delegated to the application itself. Typically, the ingress will examine the `host` header in an HTTP request to route the request to the appropriate service. To specify these rules, we have to configure an [Ingress resource](https://kubernetes.io/docs/concepts/services-networking/ingress/) in our cluster that defines these rules for how requests are forwarded to services within our cluster.
 
-Two major ingress controllers are (Trafeik)[https://traefik.io/] and [Nginx Ingress Controller](https://www.nginx.com/products/nginx-ingress-controller/). As a sidenote, API gateways are fairly analogous to ingress controllers (they just don't use the ingress resource in Kubernetes), so if you read about API gateways online you can think of these working similarly to an ingress.
+Two major ingress controllers are (Trafeik)[https://traefik.io/] and [Nginx Ingress Controller](https://www.nginx.com/products/nginx-ingress-controller/). 
 
-There is an important but nuanced distinction here: the Ingress resource in Kubernetes is not a physical process, instead it is just the configuration that is provided to your ingress controller (Trafeik, Nginx Ingress Controller, etc.) which does the routing.
+There is an important but nuanced distinction to be made: the Ingress resource in Kubernetes is not a physical process, but the configuration that is provided to the cluster's ingress controller (Trafeik, Nginx Ingress Controller, etc.) which is responsible for routing requests to different services in the cluster.
 
-## Productionizing Kubernetes
+### Productionizing Kubernetes
 
-What we have in Kubernetes so far works great for local development, but it's not quite production ready. So what are we missing?
+What other pieces from the puzzle are missing in order for us to run Kubernetes in the cloud securely and effeciently in production?
 
-### Secrets
+#### Secrets
 
-Are our secrets really secure the way that we have configured them so far? Well the secrets live in the Kubernetes manifest files which feels like a security vulnerability because anyone who is working on the codebase (or potentially the entire internet if we push our codebase to GitHub) would have access to secrets.
+When running Kind locally, we defined our Secrets in Kubernetes manifests and applied them to the cluster like we would any other resource. But are Secrets created in this way really, well, secret? They exist in plaintext on developer laptops, synced in with source control. Generally, it's good security practice not to include secrets within source control so that it's more difficult for sensitive data and credentials to leak out through inspection of open source git history, for example. How can we manage this in Kubernetes? There are a few solutions we'll discuss below.
 
-### HashiCorp Vault
+##### HashiCorp Vault
 
-[HasiCorp Vault](https://www.vaultproject.io/) is a tool for distributing secrets. We can initialize secrets in Vault and then have Vault load those secrets into our Kubernetes cluster; this way we can avoid having the secrets in our Kubernetes manifest files. Alternatively, Vault also provides an API which we can program our application to interface with, however authorization here can be fairly complex. Finally, Vault has highly granular permission management so that we can manage our secrets robustly, this is great because we want to limit visibility of our secrets to as few people as possible.
+[HasiCorp Vault](https://www.vaultproject.io/) is a tool for storing and distributing secrets. It stores secrets encrypted at rest, and has a complex permission system for fine-tuning what users can read and write which secrets inside of Vault. Vault can be configured to sync secrets into Kubernetes itself. Alternatively, Vault provides an API which we can program our application to interact with directly. The second option is generally considered more secure, especially if you can't trust all the applications running in a given cluster, but the authorization process can also be fairly complex. 
 
-### Cert Manager
+##### Cert Manager
 
-We want our ingress to be HTTPS, but how do we get TLS certificates to prove that our cluster actually owns the domain in question? Traditionally, this was done as a request through a web form. However, in modern architectures IP addresses are dynamic so we need to be able to dynamically request and prove ownership as the IP address changes. [Let's Encrypt](https://letsencrypt.org/) (LE) challenges allow us request a challenge, and upon completion of the challenge we will receive a certificate that our IP address owns the domain in question. [Cert Manager](https://cert-manager.io/docs/) is a Kubernetes operator that performs these LE challenges so that we can verify our ownership of the domain on demand.
+We want our entrypoints to the cluster to be secure through HTTPS, but how do we get TLS certificates to prove that our cluster actually owns the domain in question? Traditionally, this was done as a request through domain registrars. However, in modern architectures IP addresses are dynamic so we need to be able to dynamically request and prove ownership as the IP address changes. [Let's Encrypt](https://letsencrypt.org/) (LE) challenges allow us request a challenge, and upon completion of the challenge we will receive a certificate that our IP address owns the domain in question. [Cert Manager](https://cert-manager.io/docs/) is a Kubernetes operator that performs these LE challenges so that we can verify our ownership of the domain on demand.
 
-## Abstraction
+### Template Abstractions
 
-Writing the YAML for all of these different components of our Kubernetes cluster is manageable but still a lot of work. We can easy find ourselves duplicating YAML for difference Kubernetes objects to make only minor changes. What are some solutions?
+Writing the YAML for all of these different components of our Kubernetes cluster is manageable but still a lot of work. As we've seen, there's tons of duplicated strings around label selectors, and tons of boilerplate around constructing resources like CronJobs. We can easy find ourselves copy/pasting YAML for difference Kubernetes objects to make only minor changes. A software development mantra you might have encounted is [Don't Repeat Yourself, or DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). At its coore, DRY states that if you want to change some aspect of your system, there should be a single source of truth for that property, and changing it once should affect it everywhere. As is the spirit of DevOps, we can take this principle and apply it to our infrastructure as well as our code! Below we've catalogued a few different solutions that are out there:
 
-### Kustomize
+#### Kustomize
 
-[Kustomize](https://kustomize.io/) is a tool built into kubectl that takes in a YAML file as well as a set of patches to those YAML files and produces a new YAML file with those updated patches. Say for example we had two deployments that were almost identical except for the deployment name and number of replicas, then we could write a single YAML file and use Kustomize to apply those small changes. Another example is if you have a YAML file that needs to undergo changes for development, staging, and production tiers of deployment, then you could write a single YAML file and have three potential patches on top of that file depending on your deployment tier.
+[Kustomize](https://kustomize.io/) is a tool built into kubectl that takes in a YAML file as well as a set of patches to those YAML files and produces a new YAML file with those updated patches. If we had two deployments that were almost identical except for the deployment name and number of replicas, then we could write a single YAML file and use Kustomize to apply those small changes as patches. Another usecase for Kustomize is separate tiers and environments. If we have a YAML file that needs to undergo changes for development, staging, and production tiers of deployment, then you could write a single YAML file and have three potential patches on top of that file depending on your deployment environment.
 
-### Helm
+While this is an improvement over copy/pasting entire YAML manifests, it's still a lot of work, and not very DRY, to specify patches for every place in the yaml where a property needs to change.
 
-[Helm](https://helm.sh/) is a templating engine for Kubernetes manifests that allows us to create a Kubernetes manifest with variables. So, instead of hard-coding the image and tag that we want to use for a deployment, we could include it as a variable that is loaded into the YAML file when Helm compiles the manifest (if we use an image many times within our manifests, abstracting this away as a parameter saves us a lot of time). These templates are called **charts**.
+#### Helm
 
-### CDKs (Cloud Development Kits)
+[Helm](https://helm.sh/) is a templating engine for Kubernetes manifests. Instead of hard-coding the image and tag that we want to use for a deployment, we could include it as a variable that is loaded into the YAML file when Helm compiles the manifest (if we use an image many times within our manifests, abstracting this away as a parameter saves us a lot of duplication). These templates are called **charts**.
+
+#### CDKs (Cloud Development Kits)
 
 CDKs allow us to write our configuration in an actual programming language. This is great because we can have for loops, conditional statements, and types. At the end of the day, this compiles down into YAML and we still get all of the perks of declarative YAML. One example is the [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html) which allows us manage cloud resources in TypeScript, JavaScript, Python, Java, or C#.
