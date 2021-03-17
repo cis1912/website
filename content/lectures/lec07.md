@@ -82,6 +82,6 @@ So, what are the draws of microservices? Generally, people believe that you can 
 
 ## Advanced Observability: Distributed Tracing
 
-We know that the microservice architecture is common in Kubernetes, so how do we debug interactions between microservices? The idea is to build up a **request path** and analyze through metadata. Essentially the request path allows us to see how an incoming request percolates throughout of system. This way we can see which service is blocking or slowing down the request.
+We know that the microservice architecture is common in Kubernetes, so how do we debug interactions between microservices? The idea is to build up a **request path** and analyze through metadata. Essentially the request path allows us to see how an incoming request percolates throughout of system. This way we can see which service is blocking or slowing down the request. One implementation of request tracing is [Jaeger](https://www.jaegertracing.io/) which helps you attach IDs to requests so you can trace them through your distributed system.
 
 ![Tracing Example](/img/lec07/tracing.png)
