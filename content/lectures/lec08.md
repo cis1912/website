@@ -11,7 +11,7 @@ draft: false
 
 ## Developer Experience
 
-What steps are required to deploy a new version of our code?
+Reproducibility through automation is one of the most important goals of DevOps we've discussed throughout the course. When it comes to deployment, though, there are quite a few steps that we need to keep in mind:
 
 1. Make code change
 2. Test code
@@ -21,51 +21,53 @@ What steps are required to deploy a new version of our code?
 6. Update Kubernetes manifests to new Docker image tag
 7. Apply updated manifests
 
-This is quite a few steps, however steps 3-7 are the same every time we deploy our code, so they can be automated. This makes the deployment process quicker so that developers can focus on making code changes instead of deploying those changes.
+Importantly, steps 3-7 are the same every time we deploy our code. Automating these steps can make the deployment process quicker so that developers can focus on making code changes instead of deploying those changes.
 
-## CI vs. CD vs. CD
+Developers should only have to worry about making changes to code and testing those changes. If tests are all green, then code should be seamlessly deployed to production.
 
-There are three iterations of this automated deployment process. Typically, when we say CI/CD in this course we will be referring to Continuous Integration and Continuous Deployment.
+## CI vs. CD vs. CD, oh my!
+
+There are three different concepts that comprise the automated deployment process. The phrase "CI/CD" is relatively common, and refers to the combination of Continuous Integration and Continuous Deployment.
 
 ### Continuous Integration (CI)
 
-This is the practice of merging in code changes regularly with automated tests that run on the changes. This means we can merge features and updates as they are completed. The inclusion of automated tests (both unit tests and integration tests) allows us to ensure that these updates will not break our codebase.
+This is the practice of merging in code changes to the main branch regularly with automated tests that run on the changes, merging changes as they are completed, while being confident that the changes won't break the system. 
 
-### Continuous Delivery (CD)
+### Continuous Delivery
 
-This practice extends CI to also deploy to a staging environment where developers can their code changes.
+This practice extends CI to also deploy changes to a staging environment where team members can play around with code changes interactively in a production-like environment. While staging environments won't replace an automated test suite, the two complement each other quite well.
 
 ### Continuous Deployment (CD)
 
-This practice extends CI to deploy code changes into production if all tests pass in a staging environment. The upside here is that updates are rolled out as they are completed instead of being queued up to be deployed in batches (we can also avoid that "feature freeze" that is typically a part of this older model).
+This practice extends CI to deploy code changes into production if all tests pass. A big benefit of continuous deployment is small, atomic updates to the production environment. Larger deploys have a larger chance of causing issues, even with thorough testing, and so small deploys allow problems to be identified and mitigated more effectively. 
 
-### Canary Deployment
+#### Side-Note: Canary Deployment
 
-As a side note, Canary Deployments are a specific kind of automated deployment where users are gradually shifted from one iteration of the codebase to another. This is useful if you make large changes to the codebase and are not fully confident that they are working correctly. You can direct 5% of traffic to the new deployment and 95% of traffic to the old deployment. If there is an issue with your new deployment, all is ok because a user can just re-try and chances are they will be directed to the old deployment which you know works. This is a good way to confirm that large changes have been implemented correctly, however it requires a fair bit of overhead and a very robust testing suite to reconcile potential issues with the new system.
+Canary Deployments are a specific kind of automated deployment where users are gradually shifted from one iteration of the codebase to another. You can direct 5% of traffic to the new deployment and 95% of traffic to the old deployment. If there is an issue with the new deployment, clients can retry a request, and will most likely be routed to the older deployment. While canary deployments are a good way to confirm that large changes have been implemented correctly, the practice requires extensive automated monitoring to be able to identify issues in canaries and route traffic back to the standard deployments if necessary. They also require a certain scale: if a service only has ten clients, then routing 5% of traffic to a new deployment won't necessary give much useful data.
 
 ## Git Flow
 
-Lots of version control systems now have support for CI/CD systems, conceptually this works really well because version control is where our actual code changes are happening, so being able to move those changes right from version control into a deployment is ideal. The canonical workflow for CI/CD integration with Git is the **Git Flow**:
+A workflow for how to combine CI/CD with Git or another version control system is **Gitflow**:
 
 ![Git Flow Visualization](/img/lec08/git_flow_vis.png)
 
-While Git Flow is well adopted, it is not perfect for everything. An alternative is **Trunk Flow** where you have different branches for environments (staging, production, etc.) and branch off of those environment branches depending on what kind of code change you are making (this works really well for libraries that have lots of different feature sets and versions, but not as well for applications with a single deliverable like a web app). The general rule is: use Git Flow until Git Flow stops working for you. Once Git Flow starts to constrain your development process, you can swap to a Trunk Flow or do something more customized to fit your needs.
+While Gitflow is well adopted, it is not perfect for everything. An alternative is **Trunk Flow** where you have different branches for environments (staging, production, etc.) and branch off of those environment branches depending on what kind of code change you are making (this works really well for libraries that have lots of different feature sets and versions, but not as well for applications with a single deliverable like a web app). The general rule is: use Gitflow until Gitflow stops working for you. Once Git Flow starts to constrain your development process, you can swap to a Trunk Flow or do something more customized to fit your needs.
 
 ## How Does CI/CD Work?
 
-Fundamentally, CI/CD is just executing bash scripts on the cloud to perform steps 3-7 of our deployment process. Typically, CI/CD is linked with a Git repository such that actions are triggered by Git events (making a pull request, merging into main, creating an issue, etc.). Finally, CI/CD is generally configured using YAML with provider-specific (CircleCI, GitHub Actions, etc.) configuration wrapping the actual commands you want to run.
+Fundamentally, CI/CD is just the automatic execution of shell scripts on a machine to perform steps 3-7 of the deployment process. Typically, CI/CD is linked with a version control (e.g. Git) repository such that actions are triggered by Git events (making a pull request, merging into main, creating an issue, etc.). Luckily for us, many CI/CD systems are configured using YAML with system-specific configuration wrapping the actual commands you want to run.
 
 ## GitHub Actions
 
-GitHub Actions is the CI/CD provider that we will be using for this course, it is built into GitHub and has a lot of excellent community support. To use GitHub Actions we add **workflows** to the `.github/workflows` directory within our repository. Each workflow represents a distinct goal or process (lint my project and deploy, run tests, remove unnecessary files, etc.). A workflow is composed of a set of jobs, each of which is essentially a single step towards accomplishing the workflow goal. Jobs can either be specific bash commands or 3rd party reusable components called **actions**. There is a extensive [GitHub Actions Marketplace](https://github.com/marketplace) where you can browse these pre-built 3rd party actions, often there are already an action written for a task you are hoping to accomplish with workflows (for example, there are actions for publishing to NPM or linting Python code).
+GitHub Actions is the CI/CD provider that we will be using for this course, it is built into GitHub and has a lot of excellent community support. To use GitHub Actions we add **workflows** to the `.github/workflows` directory within our repository. Each workflow represents a distinct goal or process (lint my project and deploy, run tests, remove unnecessary files, etc.). A workflow is composed of a set of **jobs**, each of which is essentially a single step towards accomplishing the workflow goal. Jobs can either be bash commands specified with the `run` key or third party reusable components called **actions**. There is a extensive [GitHub Actions Marketplace](https://github.com/marketplace) where you can browse these pre-built 3rd party actions, often there are already an action written for a task you are hoping to accomplish with workflows (for example, there are actions for publishing to NPM or linting Python code).
 
-Because the GitHub Actions documentation is a little overloaded with jargon, it can be helpful to checkout the [Workflow Syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions).
+The [Workflow Syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions) documentation is a good place to start learning how to author workflows. It's a bit verbose but contains a lot of what you'll need to know.
 
 ## Debugging CI/CD
 
-Fair warning, debugging CI/CD can be a pain because every time we want to see how our system works we have to make a commit to our version control system, wait for that commit to register, and wait for the processes that commit triggers to run. The VSCode (YAML extension)[https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml] will help catch issues in your GitHub Actions workflows.
+Fair warning: debugging CI/CD can be pretty difficult, since we need to make a commit to Git every time we want to see how the workflow behaves. The VSCode (YAML extension)[https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml] will help catch syntax errors in your GitHub Actions workflows, which can be a source of frustration if you wait to find these after pushing changes.
 
-## GitOps
+# GitOps
 
 Instead of installing new versions of our application into our cluster with Helm, we can actually store the desired state of our cluster within the Git repository itself. This process is called **GitOps** and it affords us a lot of benefits:
 
@@ -73,13 +75,14 @@ Instead of installing new versions of our application into our cluster with Helm
 - **Discoverability**: just like in any Git repository, we can search and share our manifests.
 - **Reproducibility**: changes can be made easily to the Git repository without running additional commands to update our cluster.
 
-### Argo
+## Argo
 
 [Argo](https://argoproj.github.io/) is a tool that we can use to achieve GitOps. Essentially Argo is a process that lives in the Kubernetes cluster, polling the corresponding Git repository to check for changes. If we modify the manifests within the Git repository that is being watched, Argo will see those changes and change the desired state of our Kubernetes cluster accordingly. So, to make a change to the cluster, all we need to do is make those changes in our manifests and push those changes to our Git repository. This is much more streamlined than installing the new application with Helm every time we need to update our cluster.
 
 ![Argo Visualization](/img/lec08/argo_vis.png)
 
 ## Where We've Been
+<!--This seems to be less relevant for lecture notes...-->
 
 Let's diagram out the tools which we've learned about this semester:
 
