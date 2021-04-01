@@ -65,7 +65,7 @@ The [Workflow Syntax](https://docs.github.com/en/actions/reference/workflow-synt
 
 ## Debugging CI/CD
 
-Fair warning: debugging CI/CD can be pretty difficult, since we need to make a commit to Git every time we want to see how the workflow behaves. The VSCode (YAML extension)[https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml] will help catch syntax errors in your GitHub Actions workflows, which can be a source of frustration if you wait to find these after pushing changes.
+Fair warning: debugging CI/CD can be pretty difficult, since we need to make a commit to Git every time we want to see how the workflow behaves. The VSCode [YAML extension](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) will help catch syntax errors in your GitHub Actions workflows, which can be a source of frustration if you wait to find these after pushing changes.
 
 # GitOps
 
