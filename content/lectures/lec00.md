@@ -1,9 +1,9 @@
 ---
 title: "Course Intro, Python Basics"
-date: 2021-01-25
+date: 2021-09-01
 publishDate: 2020-12-01
 assignments: []
-slides: https://docs.google.com/presentation/d/1tUFsV_Df2ZB_N8zjG-w9coywL_mYAOGmjUTrCEWuqms/edit
+slides: "https://docs.google.com/presentation/d/1tUFsV_Df2ZB_N8zjG-w9coywL_mYAOGmjUTrCEWuqms/edit"
 draft: false
 ---
 
@@ -12,15 +12,17 @@ draft: false
 ## Housekeeping
 
 Grade breakdown:
- - 50% homework (5 assignments, 10% per homework released on GitHub and submitted on Gradescope)
- - 40% final project
- - 10% participation (show up to class or let course staff know you can't make it)
+
+- 50% homework (5 assignments, 10% per homework released on GitHub and submitted on Gradescope)
+- 40% final project
+- 10% participation
 
 Class is curved.
 
-Post questions on [Piazza](https://piazza.com/upenn/spring2021/cis188/home) (but not for debugging, but for conceptual questions on the homeworks or lecture clarifications) or some to OH:
-  - Peyton/Davis: Wednesday 4pm-6pm EST
-  - Armaan/Campbell: Sunday 4pm-6pm EST
+Post questions on [Piazza](https://piazza.com/upenn/fall2021/srs_cis1882012021c/home) (but not for debugging, but for conceptual questions on the homeworks or lecture clarifications) or some to OH:
+
+- Peyton/Will: Sunday 2pm-4pm ET
+- Armaan/Campbell: Thursday 6pm-8pm ET
 
 ## What is DevOps?
 

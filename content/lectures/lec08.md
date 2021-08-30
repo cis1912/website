@@ -1,6 +1,6 @@
 ---
 title: "Continuous Integration / Continuous Deployment"
-date: 2021-03-22
+date: 2021-10-27
 publishDate: 2020-12-01
 assignments: ["hw3"]
 slides: ""
