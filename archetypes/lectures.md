@@ -1,7 +1,7 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
-assignments: []
+assignment: ""
 slides: ""
 draft: true
 ---

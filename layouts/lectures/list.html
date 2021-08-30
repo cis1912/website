@@ -30,17 +30,10 @@
             <td> N/A</td>
             {{ end }}
             <td>
-            {{ range $asst := .Params.assignments }}
-                {{ $path := $asst | printf "/homeworks/%s" | printf "%s" }}
-                {{ with $.Site.GetPage $path }}
-                    <!--
-                      <a href="{{ .Permalink }}">{{ .Title }}</a>
-                    -->
-                    {{ $asst | upper }}: {{ .Title }}
-                {{ end }}
-                <span class="delimiter"> | </span>
+            {{ if ne .Params.assignment "" }}
+            {{ .Params.assignment }}
             {{ else }}
-                N/A
+            N/A
             {{ end }}
             </td>
           </tr>
