@@ -1,6 +1,6 @@
 ---
 title: "Practical Kubernetes"
-date: 2021-03-01
+date: 2021-10-06
 publishDate: 2020-12-01
 assignments: []
 slides: "https://docs.google.com/presentation/d/1qXqlGjM5ze9j8pC-btkYro9lLTZONnbko5k79_0CpA0/edit?usp=sharing"

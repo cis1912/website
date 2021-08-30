@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes fundamentals"
-date: 2021-02-22
+date: 2021-09-29
 publishDate: 2020-12-01
 assignments: ["hw1"]
 slides: "https://docs.google.com/presentation/d/13aSi2UkmZRwmBj1ENizwTa_E_FK0qdIIQoONfF1nDjA/edit"
