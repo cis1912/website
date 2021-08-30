@@ -16,12 +16,19 @@
       </thead>
       <tbody>
         {{ range sort .Pages.ByDate }}
-          <tr class="{{if gt .Date now}}bg-gray-400{{end}}">
+          <tr>
             <td>{{ dateFormat "1/2" .Date }}</td>
+            {{ if le .Date now }}
             <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
-            <td>
-              <a href="{{ .Params.slides }}" target="_blank">Slides</a>
-            </td>
+            {{ if ne .Params.slides "" }}
+            <td><a href="{{ .Params.slides }}" target="_blank">Slides</a></td>
+            {{ else }}
+            <td> N/A</td>
+            {{ end }}
+            {{ else }}
+            <td>{{ .Title }}</td>
+            <td> N/A</td>
+            {{ end }}
             <td>
             {{ range $asst := .Params.assignments }}
                 {{ $path := $asst | printf "/homeworks/%s" | printf "%s" }}
