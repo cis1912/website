@@ -25,12 +25,12 @@ weight = 4
 
 [[menu.main]]
 name = "Gradescope"
-url = "https://www.gradescope.com/courses/229689"
+url = "https://www.gradescope.com/courses/302784"
 weight = 5
 
 [[menu.main]]
 name = "Piazza"
-url = "https://piazza.com/upenn/spring2021/cis188/home"
+url = "https://piazza.com/upenn/fall2021/srs_cis1882012021c/home"
 weight = 6
 
 [markup]
