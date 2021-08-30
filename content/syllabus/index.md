@@ -6,7 +6,8 @@ For a list of assignments and when they are due check the [course schedule](/sch
 
 ## Meetings
 
-Course meetings will be every Monday from 1:30-3pm ET. Office hours will be held biweekly unless announced otherwise. Details can be found [on our logistics Piazza post](https://piazza.com/class/kjyhdptju7i12a?cid=6).
+Course meetings will be every Wednesday from 5:15-6:45pm ET. Office hours will be held biweekly unless announced otherwise. Details can be found [on our logistics Piazza post](https://piazza.com/class/kjyhdptju7i12a?cid=6).
+<!-- TODO: update logistics post -->
 
 ## Topics Covered
 
@@ -29,6 +30,8 @@ Homework assignments will consist of medium-size projects that lead students thr
 and application of concepts and tools discussed in lectures, and will be graded on correctness and
 completeness. An open-ended final project will give students the chance to showcase an interesting project
 using tools discussed in the course.
+
+Homework assignments will be due Monday night at 11:59pm ET. Homework assignments can be submitted late, up to the start of the next class, for a 20% penalty.
 
 ## Course Materials
 
