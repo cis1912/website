@@ -27,5 +27,6 @@
 {{ $subdomain := index .Params.email 1 }}
 <b>{{.Params.name}}</b>
 <span>(<a href="mailto:{{ $pennkey }}@{{ $subdomain }}.upenn.edu">{{ $pennkey }}@{{ $subdomain }}</a>)</span>
+<span>Office Hours: {{ .Params.officehours }}</span>
 {{ .Content }}
 </div>
