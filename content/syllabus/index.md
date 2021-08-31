@@ -2,7 +2,7 @@
 title: Syllabus
 ---
 
-For a list of assignments and when they are due check the [course schedule](/schedule).
+For a list of assignments and when they are due check the [course schedule](/lectures).
 
 ## Meetings
 
