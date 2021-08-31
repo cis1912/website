@@ -35,7 +35,7 @@ Homework assignments will be due Monday night at 11:59pm ET. Homework assignment
 
 ## Course Materials
 
-There is no required textbook for this course. [Lecture notes](/schedule) will be provided that cover everything taught in this course.
+There is no required textbook for this course. [Lecture notes](/lectures) will be provided that cover everything taught in this course.
 
 ## Academic Honesty
 
