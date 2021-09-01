@@ -16,24 +16,24 @@
       </thead>
       <tbody>
         {{ range sort .Pages.ByDate }}
-          <tr class="{{if gt .Date now}}bg-gray-400{{end}}">
+          <tr>
             <td>{{ dateFormat "1/2" .Date }}</td>
+            {{ if le .Date now }}
             <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
-            <td>
-              <a href="{{ .Params.slides }}" target="_blank">Slides</a>
-            </td>
-            <td>
-            {{ range $asst := .Params.assignments }}
-                {{ $path := $asst | printf "/homeworks/%s" | printf "%s" }}
-                {{ with $.Site.GetPage $path }}
-                    <!--
-                      <a href="{{ .Permalink }}">{{ .Title }}</a>
-                    -->
-                    {{ $asst | upper }}: {{ .Title }}
-                {{ end }}
-                <span class="delimiter"> | </span>
+            {{ if ne .Params.slides "" }}
+            <td><a href="{{ .Params.slides }}" target="_blank">Slides</a></td>
             {{ else }}
-                N/A
+            <td> N/A</td>
+            {{ end }}
+            {{ else }}
+            <td>{{ .Title }}</td>
+            <td> N/A</td>
+            {{ end }}
+            <td>
+            {{ if ne .Params.assignment "" }}
+            {{ .Params.assignment }}
+            {{ else }}
+            N/A
             {{ end }}
             </td>
           </tr>

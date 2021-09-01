@@ -2,7 +2,7 @@
 title: "HTTP"
 date: 2021-09-08
 publishDate: 2020-12-01
-assignments: []
+assignment: ""
 slides: "https://docs.google.com/presentation/d/1FVklEogqEGn6zsp8YOpCuynUCCvhB6mXusB979pMCak/edit#slide=id.p"
 draft: false
 ---
