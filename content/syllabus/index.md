@@ -6,8 +6,7 @@ For a list of assignments and when they are due check the [course schedule](/lec
 
 ## Meetings
 
-Course meetings will be every Wednesday from 5:15-6:45pm ET. Office hours will be held biweekly unless announced otherwise. Details can be found [on our logistics Piazza post](https://piazza.com/class/kjyhdptju7i12a?cid=6).
-<!-- TODO: update logistics post -->
+Course meetings will be every Wednesday from 5:15-6:45pm ET. Office hours will be held biweekly unless announced otherwise. Details can be found [on our logistics Piazza post](https://piazza.com/class/ksz6ji79db42jp?cid=6).
 
 ## Topics Covered
 
