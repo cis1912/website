@@ -1,10 +1,10 @@
 ---
-title: "Special Topic: Zero Trust"
+title: "Special Topic: CDKs"
 date: 2021-11-17
 publishDate: 2020-12-01
-assignment: ""
+assignment: "HW4: CI/CD Pipelines"
 slides: ""
 draft: false
 ---
 
-No school!
+Coming soon!

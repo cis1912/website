@@ -1,8 +1,8 @@
 ---
-title: "Special Topic: CDKs"
+title: "Advanced Kubernetes"
 date: 2021-11-10
 publishDate: 2020-12-01
-assignment: "HW4: CI/CD Pipelines"
+assignment: ""
 slides: ""
 draft: false
 ---
