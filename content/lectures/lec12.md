@@ -1,6 +1,6 @@
 ---
-title: "No Class - Thanksgiving Break"
-date: 2021-11-24
+title: "Special Topic - ¯\\_( ツ )_/¯"
+date: 2022-04-12
 publishDate: 2020-12-01
 assignment: ""
 slides: ""
