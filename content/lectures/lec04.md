@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes fundamentals"
-date: 2022-02-15
+date: 2022-02-08
 publishDate: 2020-12-01
 assignment: "HW1: Docker"
 slides: "https://docs.google.com/presentation/d/13aSi2UkmZRwmBj1ENizwTa_E_FK0qdIIQoONfF1nDjA/edit"

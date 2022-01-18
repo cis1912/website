@@ -1,6 +1,6 @@
 ---
 title: "Docker Containers"
-date: 2022-02-01
+date: 2022-01-25
 publishDate: 2020-12-01
 assignment: "HW0: Web Servers"
 slides: "https://docs.google.com/presentation/d/1V3djORAOZdd7ZpGCxqDIBf2LtfG8DC2q8nzuhPKyt_Y/edit#slide=id.p"
