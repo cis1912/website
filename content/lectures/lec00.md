@@ -1,5 +1,5 @@
 ---
-title: "Course Intro, Python Basics"
+title: "Course Intro, HTTP"
 date: 2022-01-18
 publishDate: 2020-12-01
 assignment: ""
