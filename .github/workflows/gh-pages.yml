@@ -5,7 +5,7 @@ on:
     branches:
       - master  # Set a branch to deploy
   schedule:
-    - cron: '0 20 * * 3'
+    - cron: '0 20 * * 2'
 
 jobs:
   deploy:
