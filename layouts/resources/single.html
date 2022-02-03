@@ -1,0 +1,42 @@
+{{ define "main" }}
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<!-- TODO: gallery -->
+    <style>
+     .content {
+         max-width: 80ch;
+     }
+     .content > h1 {
+         font-weight: 700;
+         font-size: 2.5rem;
+         margin-top: 0;
+         margin-bottom: 1rem;
+         color: black;
+     }
+     .content > h2 {
+         font-size: 2rem;
+         margin-top: 0;
+         margin-bottom: .2rem;
+     }
+     .content > h2:before {
+         content: "" !important;
+     }
+     .content > h3 {
+         font-size: 1.25rem;
+     }
+     .content > p, .content > li {
+         font-size: 16px !important;
+         hyphens: none !important;
+         -moz-hyphens: none !important;
+         -ms-hyphens: none !important;
+         -webkit-hyphens: none !important;
+     }
+    </style>
+  <div class="content" itemprop="articleBody">
+  {{ if (eq .Type "search") }}
+    <!-- TODO: search https://gohugo.io/tools/search/ -->
+  {{ else }}
+    {{ .Content }}
+  {{ end }}
+  </div>
+</article>
+{{ end }}

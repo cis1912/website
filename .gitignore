@@ -1,5 +1,5 @@
 node_modules
-resources
+/resources
 .DS_Store
 .idea
 public
