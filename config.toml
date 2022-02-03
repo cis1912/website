@@ -17,6 +17,11 @@ weight = 2
 name = "Syllabus"
 url = "/syllabus/"
 weight = 3
+ 
+[[menu.main]]
+name = "Resources"
+url = "/resources/"
+weight = 3.5
 
 [[menu.main]]
 name = "Staff"
