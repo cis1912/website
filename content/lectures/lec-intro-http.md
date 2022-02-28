@@ -2,9 +2,9 @@
 title: "Course Intro, HTTP"
 date: 2022-01-18
 publishDate: 2020-12-01
-assignment: ""
 slides: "https://docs.google.com/presentation/d/1tUFsV_Df2ZB_N8zjG-w9coywL_mYAOGmjUTrCEWuqms/edit"
 draft: false
+type: lec
 ---
 
 # Lecture Zero: Introduction

@@ -2,9 +2,9 @@
 title: "Continuous Integration / Continuous Deployment"
 date: 2022-03-15
 publishDate: 2020-12-01
-assignment: ""
 slides: ""
 draft: false
+type: lec
 ---
 
 # Lecture Eight: CI/CD

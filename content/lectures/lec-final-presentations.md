@@ -1,10 +1,10 @@
 ---
-title: "Special Topic: CDKs"
-date: 2022-03-29
+title: "Final Project Presentations"
+date: 2022-04-26
 publishDate: 2020-12-01
-assignment: ""
 slides: ""
 draft: false
+type: lec
 ---
 
 Coming soon!
