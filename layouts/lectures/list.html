@@ -11,14 +11,13 @@
           <th>Date</th>
           <th>Topic</th>
           <th>Slides</th>
-          <th>Assignments Due</th>
       </tr>
       </thead>
       <tbody>
         {{ range sort .Pages.ByDate }}
           <tr>
             <td>{{ dateFormat "1/2" .Date }}</td>
-            {{ if le .Date now }}
+            {{ if and (le .Date now) (ne .Params.type "hw") }}
             <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
             {{ if ne .Params.slides "" }}
             <td><a href="{{ .Params.slides }}" target="_blank">Slides</a></td>
@@ -29,13 +28,6 @@
             <td>{{ .Title }}</td>
             <td> N/A</td>
             {{ end }}
-            <td>
-            {{ if ne .Params.assignment "" }}
-            {{ .Params.assignment }}
-            {{ else }}
-            N/A
-            {{ end }}
-            </td>
           </tr>
         {{ end }}
       </tbody>

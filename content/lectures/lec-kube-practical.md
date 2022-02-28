@@ -2,9 +2,9 @@
 title: "Practical Kubernetes"
 date: 2022-02-15
 publishDate: 2020-12-01
-assignment: ""
 slides: "https://docs.google.com/presentation/d/1qXqlGjM5ze9j8pC-btkYro9lLTZONnbko5k79_0CpA0/edit?usp=sharing"
 draft: false
+type: lec
 ---
 
 # Lecture Five: Practical Kubernetes

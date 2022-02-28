@@ -2,9 +2,9 @@
 title: "Reproducibility: Docker Compose"
 date: 2022-02-01
 publishDate: 2020-12-01
-assignment: ""
 slides: "https://docs.google.com/presentation/d/1ZunsyTTG3qcqvdzr6lGlrYbH5YQL8zv45IEefrErfa4/edit"
 draft: false
+type: lec
 ---
 
 # Lecture Three: Docker Compose
