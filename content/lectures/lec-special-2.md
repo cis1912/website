@@ -1,10 +1,10 @@
 ---
-title: "Special Topic - Homelabs"
-date: 2022-04-05
+title: "Special Topic: Homelabs"
+date: 2022-03-29
 publishDate: 2020-12-01
 slides: ""
 draft: false
 type: lec
 ---
 
-Enjoy Thanksgiving break!
+Coming soon!
