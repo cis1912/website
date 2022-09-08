@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes fundamentals"
-date: 2022-02-08
+date: 2022-10-13
 publishDate: 2020-12-01
 slides: "https://docs.google.com/presentation/d/13aSi2UkmZRwmBj1ENizwTa_E_FK0qdIIQoONfF1nDjA/edit"
 draft: false

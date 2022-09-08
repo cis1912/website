@@ -1,6 +1,6 @@
 ---
 title: "The Cloud"
-date: 2022-02-22
+date: 2022-10-27
 publishDate: 2020-12-01
 slides: "https://docs.google.com/presentation/d/1G0fL13ac4V1VI7fpOQkTGdhaxySmv2NETfjSjGh0mTc/edit?usp=sharing"
 draft: false
