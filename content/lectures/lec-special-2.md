@@ -1,6 +1,6 @@
 ---
-title: "Special Topic: Homelabs"
-date: 2022-03-29
+title: "Special Topic - TBA"
+date: 2022-12-01
 publishDate: 2020-12-01
 slides: ""
 draft: false

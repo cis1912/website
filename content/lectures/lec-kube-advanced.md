@@ -1,6 +1,6 @@
 ---
-title: "Advanced Kubernetes"
-date: 2022-03-22
+title: "Special Topic - TBA"
+date: 2022-11-17
 publishDate: 2020-12-01
 slides: ""
 draft: false

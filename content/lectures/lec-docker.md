@@ -1,6 +1,6 @@
 ---
 title: "Docker Containers"
-date: 2022-01-25
+date: 2022-09-22
 publishDate: 2020-12-01
 slides: "https://docs.google.com/presentation/d/1V3djORAOZdd7ZpGCxqDIBf2LtfG8DC2q8nzuhPKyt_Y/edit#slide=id.p"
 draft: false
