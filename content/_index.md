@@ -10,4 +10,6 @@ In this course we will take a practical, hands-on look at DevOps and dive into s
 
 Any student that wants to enroll in CIS 1880 must have already completed CIS 1200.
 
-This course will use the [CIS Waitlist](https://forms.cis.upenn.edu/waitlist/) with a few screening questions to determine eligibility. In order to be considered for CIS 1880, you will need to request permission in Path@Penn ([screen recording on how to do that](https://urldefense.com/v3/__https://bit.ly/3Ru2uVr__;!!IBzWLUs!Rc6IPsZTfZK_Vt2lY__i2HWyhm18Jh8GWKPj94HBGW1lOunp6zQdN-DLI4DcGhaMSo4JhhNPCOKqx7TT-R53O0pnAqrEpyo$)), and then you will be added to the waitlist for the course. 
+This course will use the [CIS Waitlist](https://waitlist.cis.upenn.edu/) with a
+few screening questions to determine eligibility. In order to be considered for
+CIS 1880, you will need to request permission for the recitation section (201) in Path@Penn ([screen recording on how to do that](https://urldefense.com/v3/__https://bit.ly/3Ru2uVr__;!!IBzWLUs!Rc6IPsZTfZK_Vt2lY__i2HWyhm18Jh8GWKPj94HBGW1lOunp6zQdN-DLI4DcGhaMSo4JhhNPCOKqx7TT-R53O0pnAqrEpyo$)), and then you will be added to the waitlist for the course. 
