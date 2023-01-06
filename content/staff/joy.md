@@ -1,8 +1,8 @@
 ---
 name: "Joy Liu"
-image: "joy.jpeg"
+image: "joy.png"
 email: ["joyliu", "seas"]
-officehours: "Thu 6-8pm"
-rank: 1 # instructors are 0, TAs are 1.
+officehours: "TBD :D"
+rank: 0 # instructors are 0, TAs are 1.
 ---
-Resident CDKs wizard
+Legends say she's still waiting for terraform apply to finish
