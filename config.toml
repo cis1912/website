@@ -1,4 +1,4 @@
-baseURL = "https://cis188.org/"
+baseURL = "https://cis1880.org/"
 languageCode = "en-us"
 title = "CIS 1880: DevOps"
 theme = "cactus"
