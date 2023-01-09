@@ -1,6 +1,6 @@
 ---
 title: "HTTP"
-date: 2022-09-15
+date: 2023-01-25
 publishDate: 2022-09-16
 slides: "https://docs.google.com/presentation/d/1FVklEogqEGn6zsp8YOpCuynUCCvhB6mXusB979pMCak/edit#slide=id.p"
 draft: false
