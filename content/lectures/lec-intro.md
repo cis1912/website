@@ -1,6 +1,6 @@
 ---
 title: "Course Intro"
-date: 2022-09-08
+date: 2023-01-18
 publishDate: 2020-12-01
 slides: "https://docs.google.com/presentation/d/1tUFsV_Df2ZB_N8zjG-w9coywL_mYAOGmjUTrCEWuqms/edit"
 draft: false

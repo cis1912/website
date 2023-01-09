@@ -1,6 +1,6 @@
 ---
 title: "Practical Kubernetes"
-date: 2022-10-20
+date: 2023-02-22
 publishDate: 2020-12-01
 slides: "https://docs.google.com/presentation/d/1qXqlGjM5ze9j8pC-btkYro9lLTZONnbko5k79_0CpA0/edit?usp=sharing"
 draft: false

@@ -1,10 +1,10 @@
 ---
-title: "Special Topic - TBA"
-date: 2022-11-22
+title: "Special Topic - Terraform"
+date: 2023-04-05
 publishDate: 2020-12-01
 slides: ""
 draft: false
 type: lec
 ---
 
-Enjoy Thanksgiving break!
+Coming soon!
