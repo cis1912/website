@@ -1,6 +1,6 @@
 ---
 title: "HW1: Docker Due"
-date: 2022-10-12
+date: 2023-02-19
 publishDate: 2020-12-01
 draft: false
 type: hw
