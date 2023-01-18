@@ -30,8 +30,13 @@ weight = 4
 
 [[menu.main]]
 name = "Gradescope"
-url = "https://www.gradescope.com/courses/440729"
+url = "https://www.gradescope.com/courses/354160"
 weight = 5
+
+[[menu.main]]
+name = "Ed"
+url = "https://edstem.org/us/courses/35336/discussion/"
+weight = 6
 
 [markup]
   [markup.highlight]
