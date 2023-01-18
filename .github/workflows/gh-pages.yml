@@ -10,13 +10,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        domain:
-          [
-            cis1880.org,
-            cis188.org,
-          ]
     steps:
       - uses: actions/checkout@v2
         with:
@@ -30,11 +23,11 @@ jobs:
           # extended: true
 
       - name: Build
-        run: hugo --minify --baseURL=${{ matrix.domain }}
+        run: hugo --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          cname: ${{ matrix.domain }}
+          cname: cis1880.org
