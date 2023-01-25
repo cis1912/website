@@ -96,7 +96,7 @@ Now, with the inclusion of CI/CD, we can see how this process changes. Now, if A
 
 # Demo
 
-To do the demo you need your own Git repository so you can test out workflows. Fork [this](https://github.com/cis188/ci-demo) repository and clone the forked repository onto your machine. Once you have cloned the forked repository, reset the repository to an earlier commit as follows so that we can do the steps demoed in lecture:
+To do the demo you need your own Git repository so you can test out workflows. Fork [this](https://github.com/cis1880/ci-demo) repository and clone the forked repository onto your machine. Once you have cloned the forked repository, reset the repository to an earlier commit as follows so that we can do the steps demoed in lecture:
 ```
 $ cd ci-demo
 # Reset to the commit labelled "testing"
