@@ -2,7 +2,7 @@
 title: "Kubernetes fundamentals"
 date: 2023-02-15
 publishDate: 2020-12-01
-slides: "https://docs.google.com/presentation/d/13aSi2UkmZRwmBj1ENizwTa_E_FK0qdIIQoONfF1nDjA/edit"
+slides: "https://docs.google.com/presentation/d/15ZKso5t-yHt2twyzeNZYrxDtAieEmmaDmtcwoxChPw0/edit"
 draft: false
 type: lec
 ---
