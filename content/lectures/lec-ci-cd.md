@@ -2,7 +2,7 @@
 title: "Continuous Integration / Continuous Deployment"
 date: 2023-03-22
 publishDate: 2020-12-01
-slides: ""
+slides: "https://docs.google.com/presentation/d/1PG04Zd81aEBKSWoyu_e5xzN7F-YKQgv9PHtM0rTuD7c/"
 draft: false
 type: lec
 ---
