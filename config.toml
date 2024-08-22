@@ -1,6 +1,6 @@
-baseURL = "https://cis1880.org/"
+baseURL = "https://cis1912.org/"
 languageCode = "en-us"
-title = "CIS 1880: DevOps"
+title = "CIS 1912: DevOps"
 theme = "cactus"
 
 [[menu.main]]
