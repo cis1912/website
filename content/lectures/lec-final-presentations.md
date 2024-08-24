@@ -1,6 +1,6 @@
 ---
 title: "Final Project Presentations"
-date: 2023-04-26
+date: 2024-12-05
 publishDate: 2020-12-01
 slides: ""
 draft: false

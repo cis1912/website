@@ -1,6 +1,6 @@
 ---
 title: "Reproducibility: Docker Compose"
-date: 2023-02-08
+date: 2024-09-19
 publishDate: 2020-12-01
 slides: "https://docs.google.com/presentation/d/1ZunsyTTG3qcqvdzr6lGlrYbH5YQL8zv45IEefrErfa4/edit"
 draft: false
