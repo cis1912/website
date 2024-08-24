@@ -1,10 +1,10 @@
 ---
-title: "No Class - Spring Break"
-date: 2023-03-04
+title: "No Class - Fall Break"
+date: 2024-10-03
 publishDate: 2020-12-01
 slides: ""
 draft: false
 type: lec
 ---
 
-Enjoy Spring break!
+Enjoy Fall break!
