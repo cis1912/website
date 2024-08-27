@@ -102,7 +102,7 @@
 <p><img src=/img/lec08/drawing_2.png alt="Lecture 8 Visualization"></p>
 <p>Now, with the inclusion of CI/CD, we can see how this process changes. Now, if Armaan wants to deploy the FastAPI server from his local machine, he can <code>git push</code> the code into a GitHub repository. Assuming we have setup our CI/CD using GitHub Actions, we would then have two major GitHub Actions which are triggered by this push. First, the newly built Docker image is published to the GitHub Container Registry (abbreviated GCR, but watch out because Google Container Registry is also GCR) and typically tagged by the Git SHA of the most recent commit. Additionally, another action runs <code>helm upgrade</code> on our Kubernetes cluster to load the new manifests into the cluster. The new manifests will link to the new Docker image which we published to GCR and will pull that image into our Kubernetes cluster.</p>
 <h1 id=demo>Demo</h1>
-<p>To do the demo you need your own Git repository so you can test out workflows. Fork <a href=https://github.com/cis1880/ci-demo>this</a> repository and clone the forked repository onto your machine. Once you have cloned the forked repository, reset the repository to an earlier commit as follows so that we can do the steps demoed in lecture:</p>
+<p>To do the demo you need your own Git repository so you can test out workflows. Fork <a href=https://github.com/cis1912/ci-demo>this</a> repository and clone the forked repository onto your machine. Once you have cloned the forked repository, reset the repository to an earlier commit as follows so that we can do the steps demoed in lecture:</p>
 <pre tabindex=0><code>$ cd ci-demo
 # Reset to the commit labelled &quot;testing&quot;
 $ git reset 43d48188948c858e6428f064f41ada57484af33b
