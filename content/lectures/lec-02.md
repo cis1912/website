@@ -131,7 +131,7 @@ We're going to provide you with some of the starter code for a Node application.
 
 ```
 # Clone the website from Git to your local machine
-$ git clone https://github.com/cis1880/website.git
+$ git clone https://github.com/cis1912/website.git
 # Enter the node_demo directory
 $ cd website/demos/node_demo
 ```

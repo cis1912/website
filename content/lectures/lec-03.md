@@ -166,7 +166,7 @@ Now that we've looked at the hard technical requirements, let's look at the feat
 
 ### Declarative
 
-> "I want 10 instances of my webserver at the domain example.cis1880.com"
+> "I want 10 instances of my webserver at the domain example.cis1912.com"
 
 Rather than have to micro-manage the state of our cluster at all times, we want a declarative system that will automatically reconcile the current state of our system with our desired state. This abstracts a lot of the complexity away from us. We don't always care how the system gets to the desired state, we just need it to be able to get there.
 
