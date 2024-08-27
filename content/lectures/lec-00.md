@@ -27,7 +27,7 @@ Breaking down the wall between developers (people writing code) and operations (
 
 The key concept behind DevOps is that if these two teams can share responsibilities, they can build empathy, align their incentives, and ultimately lead to a better experience for the end user if new features are more stable and reliable.
 
-There are a few main DevOps solutions we will be focusing on in CIS 1880:
+There are a few main DevOps solutions we will be focusing on in CIS 1912:
   - Automated testing and deployment (we can easily ship new features with testing)
   - Easy deploy rollback (if something breaks we can revert quickly)
   - Observability (so we can know when something is wrong)
