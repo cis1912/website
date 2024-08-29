@@ -6,7 +6,7 @@ For a list of assignments and when they are due check the [course schedule](/lec
 
 ## Meetings
 
-Course meetings will be every Thursday from 5:15-6:45pm ET. Office hours will be held biweekly unless announced otherwise. Details can be found in our logistics Ed post.
+Course meetings will be every Thursday from 5:15-6:45pm ET. Details can be found in our logistics Ed post.
 
 ## Topics Covered
 
