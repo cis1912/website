@@ -2,6 +2,7 @@ baseURL = "https://cis1912.org/"
 languageCode = "en-us"
 title = "CIS 1912: DevOps"
 theme = "cactus"
+GoogleAnalytics = false
 
 [[menu.main]]
 name = "Home"
