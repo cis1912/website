@@ -1,6 +1,6 @@
 ---
 title: "Continuous Integration / Continuous Deployment"
-date: 2024-10-31
+date: 2024-11-21
 publishDate: 2020-12-01
 slides: "https://docs.google.com/presentation/d/1PG04Zd81aEBKSWoyu_e5xzN7F-YKQgv9PHtM0rTuD7c/"
 draft: false

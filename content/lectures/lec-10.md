@@ -6,4 +6,4 @@ draft: false
 type: lec
 ---
 
-Coming soon!
+:D
