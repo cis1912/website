@@ -1,9 +1,0 @@
-# assuming you already have access to a cluster (i.e. the kind one you're using for hw2)
-
-kubectl get pod
-
-helm upgrade --install demo-release .
-
-kubectl logs demo-release-echo-demo
-
-## vary args, template out diff things

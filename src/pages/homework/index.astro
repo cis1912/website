@@ -1,0 +1,48 @@
+---
+import Base from "../../layouts/Base.astro"
+import { lectures } from "../../data/lectures"
+
+const entries = lectures
+	.filter((e) => e.type === "hw")
+	.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+
+function fmtDate(d: string) {
+	return new Date(d).toLocaleDateString("en-US", {
+		month: "numeric",
+		day: "numeric",
+		timeZone: "UTC",
+	})
+}
+---
+
+<Base title="Homework">
+	<h1 class="mb-6 text-2xl font-bold text-gray-900">Homework</h1>
+	<div class="overflow-x-auto">
+		<table class="w-full text-sm">
+			<thead>
+				<tr class="border-b-2 border-gray-200">
+					<th
+						class="pb-2 pr-6 text-left text-xs font-semibold uppercase tracking-wide text-gray-400"
+						>Due Date</th
+					>
+					<th
+						class="pb-2 text-left text-xs font-semibold uppercase tracking-wide text-gray-400"
+						>Assignment</th
+					>
+				</tr>
+			</thead>
+			<tbody class="divide-y divide-gray-100">
+				{
+					entries.map((e) => (
+						<tr>
+							<td class="py-2.5 pr-6 text-gray-400 tabular-nums whitespace-nowrap">
+								{fmtDate(e.date)}
+							</td>
+							<td class="py-2.5 font-medium text-gray-800">{e.title}</td>
+						</tr>
+					))
+				}
+			</tbody>
+		</table>
+	</div>
+</Base>

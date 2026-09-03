@@ -1,0 +1,74 @@
+[
+	{
+		"date": "2026-08-25",
+		"type": "lec",
+		"title": "Intro"
+	},
+	{
+		"date": "2026-09-01",
+		"type": "lec",
+		"title": "HTTP and Docker",
+		"slides": "https://docs.google.com/presentation/d/1_Z7gDKDwgB9avKKx1cpSDJ46GnV1XKzEm-ey3LMrJ8Q/edit?slide=id.p#slide=id.p",
+		"lab": "https://github.com/cis1912/lab-01-docker"
+	},
+	{
+		"date": "2026-09-08",
+		"type": "lec",
+		"title": "Reproducibility: Docker Compose"
+	},
+	{
+		"date": "2026-09-15",
+		"type": "lec",
+		"title": "Kubernetes Fundamentals"
+	},
+	{
+		"date": "2026-09-22",
+		"type": "lec",
+		"title": "Practical Kubernetes"
+	},
+	{
+		"date": "2026-09-29",
+		"type": "lec",
+		"title": "The Cloud and Primitives"
+	},
+	{
+		"date": "2026-10-06",
+		"type": "lec",
+		"title": "Serverless Cloud"
+	},
+	{
+		"date": "2026-10-13",
+		"type": "lec",
+		"title": "Infrastructure as Code"
+	},
+	{
+		"date": "2026-10-20",
+		"type": "lec",
+		"title": "Monitoring and Observability"
+	},
+	{
+		"date": "2026-10-27",
+		"type": "lec",
+		"title": "CI/CD"
+	},
+	{
+		"date": "2026-11-03",
+		"type": "lec",
+		"title": "(TDB) Guest Lecture"
+	},
+	{
+		"date": "2026-11-10",
+		"type": "lec",
+		"title": "Special Topic — TBA"
+	},
+	{
+		"date": "2026-11-17",
+		"type": "lec",
+		"title": "Special Topic — TBA"
+	},
+	{
+		"date": "2026-12-01",
+		"type": "lec",
+		"title": "Final Project Presentations"
+	}
+]

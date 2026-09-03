@@ -1,0 +1,90 @@
+---
+import Base from "../../layouts/Base.astro"
+import { lectures } from "../../data/lectures"
+
+const entries = lectures
+	.filter((e) => e.type === "lec")
+	.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+
+function fmtDate(d: string) {
+	return new Date(d).toLocaleDateString("en-US", {
+		month: "numeric",
+		day: "numeric",
+		timeZone: "UTC",
+	})
+}
+
+function hasLink(s: string | undefined): s is string {
+	return typeof s === "string" && s.trim() !== ""
+}
+---
+
+<Base title="Schedule">
+	<h1 class="mb-6 text-2xl font-bold text-gray-900">Schedule</h1>
+	<div class="overflow-x-auto">
+		<table class="w-full text-sm">
+			<thead>
+				<tr class="border-b-2 border-gray-200">
+					<th
+						class="pb-2 pr-6 text-left text-xs font-semibold uppercase tracking-wide text-gray-400"
+						>Date</th
+					>
+					<th
+						class="pb-2 pr-6 text-left text-xs font-semibold uppercase tracking-wide text-gray-400"
+						>Topic</th
+					>
+					<th
+						class="pb-2 pr-6 text-left text-xs font-semibold uppercase tracking-wide text-gray-400"
+						>Slide</th
+					>
+					<th
+						class="pb-2 text-left text-xs font-semibold uppercase tracking-wide text-gray-400"
+						>Lab</th
+					>
+				</tr>
+			</thead>
+			<tbody class="divide-y divide-gray-100">
+				{
+					entries.map((e) => {
+						const slides = hasLink(e.slides) ? e.slides : null
+						const lab = hasLink(e.lab) ? e.lab : null
+						return (
+							<tr>
+								<td class="py-2.5 pr-6 text-gray-400 tabular-nums whitespace-nowrap">
+									{fmtDate(e.date)}
+								</td>
+								<td class="py-2.5 pr-6 font-medium text-gray-800">{e.title}</td>
+								<td class="py-2.5 pr-6 whitespace-nowrap">
+									{slides ? (
+										<a
+											href={slides}
+											target="_blank"
+											rel="noopener"
+											class="text-blue-600 hover:underline">
+											Slides
+										</a>
+									) : (
+										<span class="text-gray-300">—</span>
+									)}
+								</td>
+								<td class="py-2.5 whitespace-nowrap">
+									{lab ? (
+										<a
+											href={lab}
+											target="_blank"
+											rel="noopener"
+											class="text-blue-600 hover:underline">
+											Lab
+										</a>
+									) : (
+										<span class="text-gray-300">—</span>
+									)}
+								</td>
+							</tr>
+						)
+					})
+				}
+			</tbody>
+		</table>
+	</div>
+</Base>
