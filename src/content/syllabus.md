@@ -43,4 +43,4 @@ For this course, you may not view, share or edit another student's homework assi
 
 ## AI Policy
 
-There are no restrictions on using AI tools to help with your assignments. However, we discourage relying on AI tools to complete assignments without understanding the underlying concepts. Remember, you are the person learning the material, not *<insert your model here>*!
+There are no restrictions on using AI tools to help with your assignments. However, we discourage relying on AI tools to complete assignments without understanding the underlying concepts. Remember, you are the person learning the material, not `<insert your model here>`!
