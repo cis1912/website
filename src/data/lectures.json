@@ -35,17 +35,21 @@
   {
     "date": "2026-09-29",
     "type": "lec",
-    "title": "The Cloud and Primitives"
+    "title": "The Cloud and Primitives",
+    "slides": "https://docs.google.com/presentation/d/1_eMz0XmfF1soXebs7d22F6PTE3v1_NQqwUhPJGbnrMg/edit?slide=id.p#slide=id.p",
+    "lab": "https://github.com/cis1912/fa2026-lab-05"
   },
   {
     "date": "2026-10-06",
     "type": "lec",
-    "title": "Serverless Cloud"
+    "title": "Infrastructure as Code",
+    "slides": "https://docs.google.com/presentation/d/1SSfsMS65707RQB3sWAJqOryDPe8J86GjZpAummgs3as/edit?slide=id.p#slide=id.p",
+    "lab": "https://github.com/cis1912/fa2026-lab06"
   },
   {
     "date": "2026-10-13",
     "type": "lec",
-    "title": "Infrastructure as Code"
+    "title": "Jobs & Functions on Serverless Cloud"
   },
   {
     "date": "2026-10-20",
