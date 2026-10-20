@@ -49,7 +49,9 @@
   {
     "date": "2026-10-13",
     "type": "lec",
-    "title": "Jobs & Functions on Serverless Cloud"
+    "title": "Jobs & Functions",
+    "slides": "https://docs.google.com/presentation/d/1dEQA_9EKFySc8k_JhuLV9Cw3Bo0Wsqu5v7qWdnxgHNE/edit?usp=drive_web&ouid=115745716958012887547",
+    "lab": "https://github.com/cis1912/fa2026-lab-07/tree/main"
   },
   {
     "date": "2026-10-20",
