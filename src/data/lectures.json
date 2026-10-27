@@ -56,12 +56,14 @@
   {
     "date": "2026-10-20",
     "type": "lec",
-    "title": "Monitoring and Observability"
+    "title": "More Cloud, CI/CD",
+    "slides": "https://docs.google.com/presentation/d/1RRbVbi9ZSYNsN0s3y4d3avEKogUO42zZxm9zG6LQCQo/edit?slide=id.p#slide=id.p",
+    "lab": "https://github.com/cis1912/fa2026-lab08-ci-cd"
   },
   {
     "date": "2026-10-27",
     "type": "lec",
-    "title": "CI/CD"
+    "title": "Monitoring & Observability"
   },
   {
     "date": "2026-11-03",
