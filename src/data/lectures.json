@@ -63,17 +63,20 @@
   {
     "date": "2026-10-27",
     "type": "lec",
-    "title": "Monitoring & Observability"
+    "title": "Monitoring & Observability",
+    "slides": "https://docs.google.com/presentation/d/1IOqMoRJR0bSf_xucA-wEolcQ5xNE8nF6AXGmwhSV3CY"
   },
   {
     "date": "2026-11-03",
     "type": "lec",
-    "title": "Special Topic — TBA"
+    "title": "Homelabs",
+    "slides": "https://docs.google.com/presentation/d/1yJlsZ0v-UWnSHOkEB2ldX3FiJyBccaBqg7EOuM6_M40"
   },
   {
     "date": "2026-11-10",
     "type": "lec",
-    "title": "Special Topic — TBA"
+    "title": "Security",
+    "slides": "https://docs.google.com/presentation/d/1gTihq2RVPGAPNm1K9Avk083tWCIcPgTyshoFPLv4Uvw/edit?usp=drive_web&ouid=115745716958012887547"
   },
   {
     "date": "2026-11-17",
