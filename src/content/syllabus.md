@@ -29,6 +29,18 @@ Course meetings will be every Tuesday from 5:15-6:45pm ET.
 Homework assignments will consist of medium-size projects that lead students through the implementation
 and application of concepts and tools discussed in lectures, and will be graded on completeness. An open-ended final project will give students the chance to showcase an interesting project using tools discussed in the course.
 
+## Attendance Policy
+
+Attendance replaces parts of your concept discussion grade, capped at 10% raw points towards final grade. We only count starting from the first lecture since the add period. For example, if you have attended all lectures and got a 80% on your concept discussion, your raw final concept discussion is:
+
+0.8 * (30 * 2 / 3) + 1 * (30 * 1 / 3) = 26
+
+If you have attended half the lectures and got a 80% on your concept discussion, it's:
+
+0.8 * (30 * 25 / 30) + 1 * (30 * 5 / 30) = 25
+
+More attendance will only help your grade, and you can still get full credit while missing a few lectures.
+
 ## Course Materials
 
 There is no required textbook for this course. [Lecture notes](/lectures) will be provided that cover everything taught in this course.
